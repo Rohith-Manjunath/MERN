@@ -1,0 +1,16 @@
+# Node.js / NPM
+node_modules/
+.env
+
+# Build output
+build/
+dist/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+
+# IDE specific files (e.g., WebStorm)
+.idea/
