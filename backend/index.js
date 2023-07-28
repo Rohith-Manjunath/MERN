@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const config = require("./db/config");
 const User = require("./db/Schems");
+const Product = require("./db/ProductsSchema");
 app.use(cors());
 app.use(express.json());
 
@@ -54,7 +55,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/products", verifyToken, (req, res) => {
+app.get("/products", verifyToken, async (req, res) => {
   jwt.verify(req.token, "secretKey", (err, authdata) => {
     if (err) {
       res.status(401).json("Unauthorized User");
@@ -62,6 +63,22 @@ app.get("/products", verifyToken, (req, res) => {
       res.json("verified user :-)");
     }
   });
+});
+
+app.post("/products", async (req, res) => {
+  try {
+    const { ImageUrl, Model, Price, Description } = req.body;
+    let product = await Product.create({
+      ImageUrl: ImageUrl,
+      Model: Model,
+      Price: Price,
+      Description: Description,
+    });
+
+    res.status(200).json("Product added successfully");
+  } catch (e) {
+    res.json(400).json(e);
+  }
 });
 
 function verifyToken(req, res, next) {
