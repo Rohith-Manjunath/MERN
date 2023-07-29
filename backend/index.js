@@ -46,7 +46,7 @@ app.post("/login", async (req, res) => {
     try {
       let newUser = find.toObject();
       const token = jwt.sign(newUser, "secretKey", { expiresIn: "5h" });
-      res.status(200).json({ Message: "Login successful", token });
+      res.status(200).json({ message: "Login successful", token });
     } catch (e) {
       return res.sendStatus(500).json(e);
     }
@@ -56,11 +56,12 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/products", verifyToken, async (req, res) => {
-  jwt.verify(req.token, "secretKey", (err, authdata) => {
+  jwt.verify(req.token, "secretKey", async (err, authdata) => {
     if (err) {
       res.status(401).json("Unauthorized User");
     } else {
-      res.json("verified user :-)");
+      let findProducts = await Product.find();
+      res.json(findProducts);
     }
   });
 });
@@ -75,9 +76,11 @@ app.post("/products", async (req, res) => {
       Description: Description,
     });
 
-    res.status(200).json("Product added successfully");
+    let UpdatedProduct = product.toObject();
+
+    res.status(200).json(UpdatedProduct);
   } catch (e) {
-    res.json(400).json(e);
+    res.json(400).json(e.message);
   }
 });
 

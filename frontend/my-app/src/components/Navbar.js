@@ -6,7 +6,7 @@ const Navbar = () => {
   let auth = localStorage.getItem("user");
   function clearLocalStorage() {
     localStorage.clear();
-    window.location.href = "/register";
+    window.location.href = "/login";
   }
 
   return (
