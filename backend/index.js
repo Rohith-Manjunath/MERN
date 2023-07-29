@@ -77,7 +77,6 @@ app.post("/products", async (req, res) => {
     });
 
     let UpdatedProduct = product.toObject();
-
     res.status(200).json(UpdatedProduct);
   } catch (e) {
     res.json(400).json(e.message);
