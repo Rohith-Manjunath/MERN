@@ -18,6 +18,9 @@ const Navbar = () => {
               <NavLink to="/products">Products</NavLink>
             </li>
             <li>
+              <NavLink to="/addProducts">Add Products</NavLink>
+            </li>
+            <li>
               <NavLink to="register" onClick={clearLocalStorage}>
                 Logout
               </NavLink>
