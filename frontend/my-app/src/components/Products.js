@@ -48,40 +48,117 @@ const Products = () => {
     window.location.href = "/likedProducts";
   }
 
+  async function Filter1() {
+    let result = await fetch("http://localhost:2000/filter1", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    setProducts(result);
+    console.log(result);
+  }
+  async function Filter2() {
+    let result = await fetch("http://localhost:2000/filter2", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    setProducts(result);
+    console.log(result);
+  }
+  async function Filter3() {
+    let result = await fetch("http://localhost:2000/filter3", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    setProducts(result);
+    console.log(result);
+  }
+  async function Filter4() {
+    let result = await fetch("http://localhost:2000/filter4", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    setProducts(result);
+  }
+
+  async function Search(e) {
+    let result = await fetch(`http://localhost:2000/search/${e.target.value}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    result = await result.json();
+    if (result) {
+      setProducts(result);
+    }
+  }
+
   return (
-    <div className="items-container">
-      {products.length > 0 ? (
-        products.map((item, i) => {
-          return (
-            <div key={i} className="items">
-              <div className="img-container">
-                <img src={item.ImageUrl} alt="" />
-              </div>
-              <div className="item-details">
-                <h2>
-                  <span>Model</span> - {item.Model}
-                </h2>
-                <h3>
-                  <span>Price</span> - {item.Price}RS
-                </h3>
-                <p>{item.Description}</p>
-                <div className="update-delete">
-                  <NavLink to={"/updateProduct/" + item._id}>Update</NavLink>
-                  <button onClick={() => DeleteProduct(item._id)}>
-                    Delete
-                  </button>
-                  <button onClick={() => Like(item._id)}>Like</button>
+    <div>
+      <div className="filter-container">
+        <h2>Filters</h2>
+
+        <div className="filters">
+          <button onClick={Filter1}>1000 RS-10000 RS</button>
+          <button onClick={Filter2}>11000 RS-20000 RS</button>
+          <button onClick={Filter3}>21000 RS-30000 RS</button>
+          <button onClick={Filter4}>31000 RS-40000 RS</button>
+          <button onClick={getProducts}>All</button>
+          <input
+            type="text"
+            placeholder="Search for products"
+            onChange={Search}
+          />
+        </div>
+      </div>
+
+      <div className="items-container">
+        {products.length > 0 ? (
+          products.map((item, i) => {
+            return (
+              <div key={i} className="items">
+                <div className="img-container">
+                  <img src={item.ImageUrl} alt="" />
+                </div>
+                <div className="item-details">
+                  <h2>
+                    <span>Model</span> - {item.Model}
+                  </h2>
+                  <h3>
+                    <span>Price</span> - {item.Price}RS
+                  </h3>
+                  <p>{item.Description}</p>
+                  <div className="update-delete">
+                    <NavLink to={"/updateProduct/" + item._id}>Update</NavLink>
+                    <button onClick={() => DeleteProduct(item._id)}>
+                      Delete
+                    </button>
+                    <button onClick={() => Like(item._id)}>Like</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })
-      ) : (
-        <div className="addProductLink">
-          <h1>Be first to add product</h1>
-          <Link to="/addProducts">Add product here</Link>
-        </div>
-      )}
+            );
+          })
+        ) : (
+          <div className="addProductLink">
+            <h1>Be first to add product</h1>
+            <Link to="/addProducts">Add product here</Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

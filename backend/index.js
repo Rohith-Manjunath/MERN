@@ -147,6 +147,25 @@ app.delete("/removeLiked/:id", async (req, res) => {
   }
 });
 
+app.get("/filter1", async (req, res) => {
+  let filter = await Product.find({ Price: { $gte: 1000, $lte: 10000 } });
+  res.json(filter);
+});
+
+app.get("/filter2", async (req, res) => {
+  let filter = await Product.find({ Price: { $gte: 11000, $lte: 20000 } });
+  res.json(filter);
+});
+app.get("/filter3", async (req, res) => {
+  let filter = await Product.find({ Price: { $gte: 21000, $lte: 30000 } });
+  res.json(filter);
+});
+
+app.get("/filter4", async (req, res) => {
+  let filter = await Product.find({ Price: { $gte: 31000, $lte: 40000 } });
+  res.json(filter);
+});
+
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers["authorization"];
 
@@ -158,6 +177,24 @@ function verifyToken(req, res, next) {
     res.json("Error");
   }
 }
+
+app.get("/search/:key", async (req, res) => {
+  const Price = Number(req.params.key);
+
+  try {
+    let user = await Product.find({
+      $or: [
+        { Model: { $regex: req.params.key } },
+        { Price: Price },
+        { Description: { $regex: req.params.key } },
+      ],
+    });
+
+    res.json(user);
+  } catch (e) {
+    res.json(e.message);
+  }
+});
 
 if (config) {
   app.listen(process.env.PORT, () => {
