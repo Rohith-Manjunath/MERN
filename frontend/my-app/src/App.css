@@ -46,6 +46,17 @@
   text-align: center;
 }
 
+.nav-right{
+  margin-right: 2rem;
+}
+
+
+.nav-right h2{
+  color: white;
+  margin-bottom: 1.2rem;
+
+}
+
 
 .signup-container{
 
@@ -90,6 +101,7 @@ border-radius: 1rem;
   border-radius: 1rem;
   box-shadow: 2px 2px 0 2px black;
   font-size: 1rem;
+  width: 8rem;
 }
 
 .signup-container button:hover{
@@ -151,4 +163,44 @@ height: 100%;
   color: white;
   border-radius: 0.2rem;
   padding: 0.1rem 0.5rem;
+}
+
+.item-details a,.item-details button{
+  text-decoration: none;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 1rem;
+  padding: 0.2rem;
+  box-shadow: 2px 2px 0 2px black;
+  transition: all 0.2s;
+  width: 50%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  border: 1px solid rgb(222, 219, 219);
+
+}
+
+.item-details button:active,.item-details a:active{
+
+  box-shadow: none;
+  transform: translate(1px,2px);
+
+}
+
+.update-delete{
+  display: flex;
+  gap: 1rem;
+}
+
+
+.addProductLink{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.addProductLink a{
+  font-size: 1.2rem;
 }

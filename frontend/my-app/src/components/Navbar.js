@@ -4,10 +4,15 @@ import "../App.css";
 
 const Navbar = () => {
   let auth = localStorage.getItem("user");
+
   function clearLocalStorage() {
-    localStorage.clear();
-    window.location.href = "/login";
+    if (window.confirm("Are You sure , You wanna log out???")) {
+      localStorage.clear();
+      window.location.href = "/login";
+    }
   }
+
+  let name = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="Navbar">
@@ -19,6 +24,12 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink to="/addProducts">Add Products</NavLink>
+            </li>
+            <li>
+              <NavLink to="/updateProduct">Update Products</NavLink>
+            </li>
+            <li>
+              <NavLink to="/likedProducts">Liked Products</NavLink>
             </li>
             <li>
               <NavLink to="register" onClick={clearLocalStorage}>
@@ -37,6 +48,16 @@ const Navbar = () => {
           </>
         )}
       </ul>
+
+      <div className="nav-right">
+        {name ? (
+          <li>
+            <h2>Hey 👋 {name.name}</h2>
+          </li>
+        ) : (
+          " "
+        )}
+      </div>
     </div>
   );
 };

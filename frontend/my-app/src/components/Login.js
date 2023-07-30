@@ -4,6 +4,10 @@ import { useState } from "react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  let Name = JSON.parse(localStorage.getItem("user"));
+
   //   navigate to products page after successful registration and store user details in local storage for authentication purposes
   async function handleClick(e) {
     e.preventDefault();
@@ -23,10 +27,9 @@ const Login = () => {
         if (result.Error) {
           alert(`Login failed! ${result.Error}`);
         } else {
-          localStorage.setItem("user", JSON.stringify({ email }));
+          localStorage.setItem("user", JSON.stringify({ name, email }));
           localStorage.setItem("token", result.token);
           window.location.href = "/products";
-          alert(result.message);
         }
       }
     }
@@ -35,6 +38,13 @@ const Login = () => {
   return (
     <div className="signup-container">
       <h1>Login</h1>
+
+      <input
+        type="text"
+        placeholder="Enter Name"
+        required
+        onChange={(e) => setName(e.target.value)}
+      />
 
       <input
         type="email"
