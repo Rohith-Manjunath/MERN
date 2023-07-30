@@ -7,6 +7,7 @@ const cors = require("cors");
 const config = require("./db/config");
 const User = require("./db/Schems");
 const Product = require("./db/ProductsSchema");
+const Liked = require("./db/likedProduct");
 app.use(cors());
 app.use(express.json());
 
@@ -80,6 +81,69 @@ app.post("/products", async (req, res) => {
     res.status(200).json(UpdatedProduct);
   } catch (e) {
     res.json(400).json(e.message);
+  }
+});
+
+app.get("/updateProduct/:id", async (req, res) => {
+  let product = await Product.findOne({ _id: req.params.id });
+  res.json(product);
+});
+app.put("/updateProduct/:id", async (req, res) => {
+  let product = await Product.updateOne(
+    { _id: req.params.id },
+
+    {
+      $set: req.body,
+    }
+  );
+
+  if (product) {
+    res.status(200).json("Product updated successfully");
+  } else {
+    res.status(400).json("Something went wrong");
+  }
+});
+
+app.delete("/product/:id", async (req, res) => {
+  let product = await Product.deleteOne({ _id: req.params.id });
+  if (product) {
+    res.status(200).json("Product deleted Successfully");
+  } else {
+    res.status(400).json("something went wrong");
+  }
+});
+
+app.post("/liked/:id", async (req, res) => {
+  let product = await Product.findOne({ _id: req.params.id });
+
+  if (product) {
+    let liked = await Liked.create({
+      ImageUrl: product.ImageUrl,
+      Model: product.Model,
+      Price: product.Price,
+      Description: product.Description,
+    });
+
+    res.status(200).json(liked);
+  }
+});
+
+app.get("/liked", async (req, res) => {
+  let product = await Liked.find();
+
+  if (product) {
+    res.status(200).json(product);
+  } else {
+    res.status(400).json({ Error: "something went wrong" });
+  }
+});
+
+app.delete("/removeLiked/:id", async (req, res) => {
+  let product = await Liked.deleteOne({ _id: req.params.id });
+  if (product) {
+    res.status(200).json("Item Removed Successfully");
+  } else {
+    res.status(400).json("something went wrong");
   }
 });
 

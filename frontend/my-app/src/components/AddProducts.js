@@ -24,7 +24,7 @@ const AddProducts = () => {
 
   return (
     <div className="signup-container">
-      <h1>Login</h1>
+      <h1>Add Product</h1>
 
       <input
         type="email"
