@@ -32,6 +32,9 @@ const Navbar = () => {
               <NavLink to="/likedProducts">Liked Products</NavLink>
             </li>
             <li>
+              <NavLink to="/cart">Cart</NavLink>
+            </li>
+            <li>
               <NavLink to="register" onClick={clearLocalStorage}>
                 Logout
               </NavLink>

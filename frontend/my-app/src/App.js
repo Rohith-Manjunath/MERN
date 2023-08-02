@@ -8,6 +8,7 @@ import PrivateComponent from "./components/PrivateComponent";
 import AddProducts from "./components/AddProducts";
 import UpdateProduct from "./components/UpdateProduct";
 import LikedProducts from "./components/LikedProducts";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/products" element={<Products />}></Route>
             <Route path="/logout" element={<SignUp />}></Route>
             <Route path="/likedProducts" element={<LikedProducts />}></Route>
+            <Route path="/cart" element={<Cart />}></Route>
           </Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<SignUp />}></Route>

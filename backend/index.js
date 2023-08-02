@@ -8,6 +8,7 @@ const config = require("./db/config");
 const User = require("./db/Schems");
 const Product = require("./db/ProductsSchema");
 const Liked = require("./db/likedProduct");
+const Cart = require("./db/cart");
 app.use(cors());
 app.use(express.json());
 
@@ -135,6 +136,40 @@ app.get("/liked", async (req, res) => {
     res.status(200).json(product);
   } else {
     res.status(400).json({ Error: "something went wrong" });
+  }
+});
+
+app.get("/cart", async (req, res) => {
+  let product = await Cart.find();
+
+  if (product) {
+    res.status(200).json(product);
+  } else {
+    res.status(400).json({ Error: "something went wrong" });
+  }
+});
+
+app.post("/cart/:id", async (req, res) => {
+  let product = await Product.findOne({ _id: req.params.id });
+
+  if (product) {
+    let liked = await Cart.create({
+      ImageUrl: product.ImageUrl,
+      Model: product.Model,
+      Price: product.Price,
+      Description: product.Description,
+    });
+
+    res.status(200).json(liked);
+  }
+});
+
+app.delete("/removeCart/:id", async (req, res) => {
+  let product = await Cart.deleteOne({ _id: req.params.id });
+  if (product) {
+    res.status(200).json("Item Removed Successfully");
+  } else {
+    res.status(400).json("something went wrong");
   }
 });
 
