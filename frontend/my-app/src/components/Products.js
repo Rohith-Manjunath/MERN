@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Products = () => {
@@ -46,6 +45,17 @@ const Products = () => {
     result = await result.json();
 
     window.location.href = "/likedProducts";
+  }
+
+  async function Cart(id) {
+    let result = await fetch(`http://localhost:2000/cart/${id}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+    });
+
+    result = await result.json();
+
+    window.location.href = "/cart";
   }
 
   async function Filter1() {
@@ -147,6 +157,7 @@ const Products = () => {
                       Delete
                     </button>
                     <button onClick={() => Like(item._id)}>Like</button>
+                    <button onClick={() => Cart(item._id)}>Add to cart</button>
                   </div>
                 </div>
               </div>
