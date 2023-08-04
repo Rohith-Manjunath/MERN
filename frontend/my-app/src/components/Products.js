@@ -25,14 +25,18 @@ const Products = () => {
     }
   }
   async function DeleteProduct(id) {
-    let result = await fetch(`http://localhost:2000/product/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    });
+    if (window.confirm("are you sure you wanna delete this product?")) {
+      let result = await fetch(`http://localhost:2000/product/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
 
-    result = await result.json();
-    if (result) {
-      getProducts();
+      result = await result.json();
+      if (result) {
+        getProducts();
+      }
+    } else {
+      window.location.href = "/products";
     }
   }
 
