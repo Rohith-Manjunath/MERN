@@ -11,6 +11,9 @@ const Liked = require("./db/likedProduct");
 const Cart = require("./db/cart");
 app.use(cors());
 app.use(express.json());
+const path = require("path");
+const modulePath = path.join(__dirname, "src", "server.js");
+const requiredModule = require(modulePath);
 
 app.get("/", (req, res) => {
   res.json("Home");
