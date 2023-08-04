@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 const Products = () => {
   // Use array destructuring to get the products state and the setProducts function
   const [products, setProducts] = useState([]);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     getProducts();
   }, []);
 
   async function getProducts() {
+    setFilter("All Products");
     try {
       fetch("http://localhost:2000/products", {
         method: "GET",
@@ -63,6 +65,7 @@ const Products = () => {
   }
 
   async function Filter1() {
+    setFilter("1000RS - 10000RS");
     let result = await fetch("http://localhost:2000/filter1", {
       method: "GET",
       headers: {
@@ -71,9 +74,10 @@ const Products = () => {
     });
     result = await result.json();
     setProducts(result);
-    console.log(result);
   }
   async function Filter2() {
+    setFilter("11000RS - 20000RS");
+
     let result = await fetch("http://localhost:2000/filter2", {
       method: "GET",
       headers: {
@@ -82,9 +86,10 @@ const Products = () => {
     });
     result = await result.json();
     setProducts(result);
-    console.log(result);
   }
   async function Filter3() {
+    setFilter("21000RS - 30000RS");
+
     let result = await fetch("http://localhost:2000/filter3", {
       method: "GET",
       headers: {
@@ -93,9 +98,10 @@ const Products = () => {
     });
     result = await result.json();
     setProducts(result);
-    console.log(result);
   }
   async function Filter4() {
+    setFilter("31000RS - 40000RS");
+
     let result = await fetch("http://localhost:2000/filter4", {
       method: "GET",
       headers: {
@@ -136,6 +142,7 @@ const Products = () => {
             placeholder="Search for products"
             onChange={Search}
           />
+          <h3>{filter}</h3>
         </div>
       </div>
 

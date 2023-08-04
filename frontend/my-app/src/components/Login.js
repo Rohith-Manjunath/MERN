@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -61,6 +62,9 @@ const Login = () => {
       <button type="submit" onClick={handleClick}>
         Login
       </button>
+      <p>
+        Not a user yet?? <Link to="/register">Register Here</Link>{" "}
+      </p>
     </div>
   );
 };

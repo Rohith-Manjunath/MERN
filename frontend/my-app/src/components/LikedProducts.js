@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 const LikedProducts = () => {
   const [products, setProducts] = useState([]);
@@ -32,7 +31,6 @@ const LikedProducts = () => {
       });
 
       result = await result.json();
-      console.log(result);
       getProducts();
     } else {
       window.location.href = "/likedProducts";
@@ -55,10 +53,9 @@ const LikedProducts = () => {
                 <span>Price</span> - {item.Price}
               </h3>
               <p>{item.Description}</p>
-            </div>
-
-            <div className="update-delete">
-              <button onClick={() => RemoveItem(item._id)}>Remove</button>
+              <div className="update-delete">
+                <button onClick={() => RemoveItem(item._id)}>Remove</button>
+              </div>
             </div>
           </div>
         ))
