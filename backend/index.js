@@ -224,7 +224,6 @@ app.get("/search/:key", async (req, res) => {
     let products = await Product.find({
       $or: [
         { Model: { $regex: searchKey, $options: "i" } }, // Case-insensitive search for Model
-        { Price: numericPrice }, // Exact match for Price (assuming numeric type in the database)
         { Description: { $regex: searchKey, $options: "i" } }, // Case-insensitive search for Description
       ],
     });

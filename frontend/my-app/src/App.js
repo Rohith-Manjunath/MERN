@@ -11,13 +11,20 @@ import LikedProducts from "./components/LikedProducts";
 import Cart from "./components/Cart";
 
 function App() {
+  let auth = localStorage.getItem("token");
+
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route element={<PrivateComponent />}>
-            <Route path="/" element={<SignUp />}></Route>
+            {auth ? (
+              <Route path="/" element={<Products />}></Route>
+            ) : (
+              <Route path="/" element={<SignUp />}></Route>
+            )}
+
             <Route path="/addProducts" element={<AddProducts />}></Route>
             <Route
               path="/updateProduct/:id"

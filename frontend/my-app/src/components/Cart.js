@@ -31,7 +31,6 @@ const Cart = () => {
     });
 
     result = await result.json();
-    console.log(result);
     getProducts();
   }
 
@@ -51,11 +50,10 @@ const Cart = () => {
                 <span>Price</span> - {item.Price}
               </h3>
               <p>{item.Description}</p>
-            </div>
-
-            <div className="update-delete">
-              <button onClick={() => RemoveItem(item._id)}>Remove</button>
-              <Link to="/products">Add more items</Link>
+              <div className="update-delete">
+                <button onClick={() => RemoveItem(item._id)}>Remove</button>
+                <Link to="/products">Add more items</Link>
+              </div>
             </div>
           </div>
         ))
