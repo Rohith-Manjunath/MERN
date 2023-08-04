@@ -25,14 +25,18 @@ const LikedProducts = () => {
   }
 
   async function RemoveItem(id) {
-    let result = await fetch(`http://localhost:2000/removeLiked/${id}`, {
-      method: "Delete",
-      headers: { "Content-Type": "application/json" },
-    });
+    if (window.confirm("Are you sure you wanna remove this item??")) {
+      let result = await fetch(`http://localhost:2000/removeLiked/${id}`, {
+        method: "Delete",
+        headers: { "Content-Type": "application/json" },
+      });
 
-    result = await result.json();
-    console.log(result);
-    getProducts();
+      result = await result.json();
+      console.log(result);
+      getProducts();
+    } else {
+      window.location.href = "/likedProducts";
+    }
   }
 
   return (

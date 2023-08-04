@@ -214,20 +214,24 @@ function verifyToken(req, res, next) {
 }
 
 app.get("/search/:key", async (req, res) => {
-  const Price = Number(req.params.key);
+  const searchKey = req.params.key;
 
   try {
-    let user = await Product.find({
+    // Assuming Price is stored as a numeric type in the database
+    // Convert the search key for Price to a number
+    const numericPrice = parseFloat(searchKey);
+
+    let products = await Product.find({
       $or: [
-        { Model: { $regex: req.params.key } },
-        { Price: Price },
-        { Description: { $regex: req.params.key } },
+        { Model: { $regex: searchKey, $options: "i" } }, // Case-insensitive search for Model
+        { Price: numericPrice }, // Exact match for Price (assuming numeric type in the database)
+        { Description: { $regex: searchKey, $options: "i" } }, // Case-insensitive search for Description
       ],
     });
 
-    res.json(user);
+    res.json(products);
   } catch (e) {
-    res.json(e.message);
+    res.status(500).json({ error: e.message });
   }
 });
 

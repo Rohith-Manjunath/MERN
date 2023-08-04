@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   Price: {
-    type: Number,
+    type: String,
     required: true,
   },
   Description: {
