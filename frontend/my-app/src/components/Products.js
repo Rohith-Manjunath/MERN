@@ -126,6 +126,31 @@ const Products = () => {
     }
   }
 
+  async function getLaptops() {
+    setFilter("Laptops");
+
+    let result = await fetch("http://localhost:2000/products/laptops", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    setProducts(result);
+  }
+  async function getMobiles() {
+    setFilter("Laptops");
+
+    let result = await fetch("http://localhost:2000/products/mobiles", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    setProducts(result);
+  }
+
   return (
     <div>
       <div className="filter-container">
@@ -137,6 +162,8 @@ const Products = () => {
           <button onClick={Filter3}>21000 RS-30000 RS</button>
           <button onClick={Filter4}>31000 RS-40000 RS</button>
           <button onClick={getProducts}>All</button>
+          <button onClick={getLaptops}>Laptops</button>
+          <button onClick={getMobiles}>Mobiles</button>
           <input
             type="text"
             placeholder="Search for products"

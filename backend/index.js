@@ -11,9 +11,6 @@ const Liked = require("./db/likedProduct");
 const Cart = require("./db/cart");
 app.use(cors());
 app.use(express.json());
-const path = require("path");
-const modulePath = path.join(__dirname, "src", "server.js");
-const requiredModule = require(modulePath);
 
 app.get("/", (req, res) => {
   res.json("Home");
@@ -73,12 +70,13 @@ app.get("/products", verifyToken, async (req, res) => {
 
 app.post("/products", async (req, res) => {
   try {
-    const { ImageUrl, Model, Price, Description } = req.body;
+    const { ImageUrl, Model, Price, Description, Category } = req.body;
     let product = await Product.create({
       ImageUrl: ImageUrl,
       Model: Model,
       Price: Price,
       Description: Description,
+      Category: Category,
     });
 
     let UpdatedProduct = product.toObject();
@@ -235,6 +233,15 @@ app.get("/search/:key", async (req, res) => {
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
+});
+
+app.get("/products/laptops", async (req, res) => {
+  let mobile = await Product.find({ Category: "Laptop" });
+  res.json(mobile);
+});
+app.get("/products/mobiles", async (req, res) => {
+  let mobile = await Product.find({ Category: "Mobile" });
+  res.json(mobile);
 });
 
 if (config) {

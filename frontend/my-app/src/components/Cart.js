@@ -25,13 +25,17 @@ const Cart = () => {
   }
 
   async function RemoveItem(id) {
-    let result = await fetch(`http://localhost:2000/removeCart/${id}`, {
-      method: "Delete",
-      headers: { "Content-Type": "application/json" },
-    });
+    if (window.confirm("Are you sure you wanna delete this item??")) {
+      let result = await fetch(`http://localhost:2000/removeCart/${id}`, {
+        method: "Delete",
+        headers: { "Content-Type": "application/json" },
+      });
 
-    result = await result.json();
-    getProducts();
+      result = await result.json();
+      getProducts();
+    } else {
+      window.location.href = "/cart";
+    }
   }
 
   return (
