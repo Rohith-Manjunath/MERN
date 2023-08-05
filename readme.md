@@ -1,4 +1,5 @@
 # E-Commerce Website 
+![Alt Text](website.png)
 
 
 ## Table of Contents
