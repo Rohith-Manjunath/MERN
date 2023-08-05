@@ -23,8 +23,6 @@ Welcome to our E-Commerce website built using the MERN stack! This is a full-sta
 - Search Functionality: Implement a search feature to help users find specific products.
 - Responsive Design: Ensure the website is mobile-friendly and works on various devices.
 
-
-
 ## Technologies Used
 
 - MongoDB: A NoSQL database for storing product and user data.
