@@ -1,7 +1,5 @@
 # E-Commerce Website 
 
-![Image Description](C:\Users\Rohith.M\Desktop\MERN-STACK\image.png)
-
 
 ## Table of Contents
 
