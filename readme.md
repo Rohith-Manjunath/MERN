@@ -17,7 +17,7 @@ Welcome to our E-Commerce website built using the MERN stack! This is a full-sta
 
 - User Authentication: Allow users to create accounts, log in, and manage their profiles.
 - Product Catalog: Display a variety of products with detailed descriptions and images.
--Filters: It contains filter for both product's categories and price.
+-Filters: It contains filter for both product's categories and different price.
 - Shopping Cart: Enable users to add and remove items from their cart before checkout.
 - Admin Dashboard: Provide administrators with tools to manage products, orders, and users.
 - Search Functionality: Implement a search feature to help users find specific products.
