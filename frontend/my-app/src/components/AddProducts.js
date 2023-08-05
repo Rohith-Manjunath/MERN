@@ -5,6 +5,7 @@ const AddProducts = () => {
   const [Model, setModel] = useState("");
   const [Price, setPrice] = useState("");
   const [Description, setDescription] = useState("");
+  const [Category, setCategory] = useState("");
 
   async function addProducts(e) {
     e.preventDefault();
@@ -15,11 +16,11 @@ const AddProducts = () => {
         "Content-Type": "application/json",
         authorization: `bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify({ ImageUrl, Model, Price, Description }),
+      body: JSON.stringify({ ImageUrl, Model, Price, Description, Category }),
     });
 
     result = await result.json();
-    console.log(result);
+    window.location.href = "/products";
   }
 
   return (
@@ -49,6 +50,12 @@ const AddProducts = () => {
         placeholder="Enter description"
         required
         onChange={(e) => setDescription(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Enter Category"
+        required
+        onChange={(e) => setCategory(e.target.value)}
       />
       <button type="submit" onClick={addProducts}>
         Add

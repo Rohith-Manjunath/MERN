@@ -12,6 +12,7 @@ const likedSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+
   Description: {
     type: String,
     required: true,
