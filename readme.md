@@ -1,6 +1,8 @@
 # E-Commerce Website 
+![sample website image](image.png)
 
-![Image Description](./image.png)
+
+
 
 
 ## Table of Contents
