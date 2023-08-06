@@ -17,6 +17,7 @@ Welcome to our E-Commerce website built using the MERN stack! This is a full-sta
 
 - User Authentication: Allow users to create accounts, log in, and manage their profiles.
 - Product Catalog: Display a variety of products with detailed descriptions and images.
+-Password hashing- Implemented bcrypt password hashing for enhanced security.
 -Filters: It contains filter for both product's categories and different price.
 - Shopping Cart: Enable users to add and remove items from their cart before checkout.
 - Admin Dashboard: Provide administrators with tools to manage products, orders, and users.
