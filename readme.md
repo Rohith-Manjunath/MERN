@@ -17,14 +17,40 @@ Welcome to our E-Commerce website built using the MERN stack! This is a full-sta
 
 ## Features
 
-- User Authentication: Allow users to create accounts, log in, and manage their profiles.
-- Product Catalog: Display a variety of products with detailed descriptions and images.
--Password hashing-Implemented bcrypt password hashing for enhanced security.
--Filters: It contains filter for both product's categories and different price.
-- Shopping Cart: Enable users to add and remove items from their cart before checkout.
-- Admin Dashboard: Provide administrators with tools to manage products, orders, and users.
-- Search Functionality: Implement a search feature to help users find specific products.
-- Responsive Design: Ensure the website is mobile-friendly and works on various devices.
+Certainly! Here are the features with bullet points and dashes, including the description dash:
+
+- User Authentication:
+  - Allow users to create accounts
+  - Implement a secure login system
+  - Enable users to manage their profiles
+
+- Product Catalog:
+  - Display a variety of products
+  - Provide detailed descriptions for each product
+  - Include images for better visualization
+
+- Password Hashing:
+  - Implemented bcrypt password hashing for enhanced security
+
+- Filters:
+  - Allow filtering of products by categories
+  - Provide filters for different price ranges
+
+- Shopping Cart:
+  - Enable users to add items to their cart
+  - Allow users to remove items from their cart before checkout
+
+- Admin Dashboard:
+  - Provide administrators with tools to manage products
+  - Offer tools to manage orders
+  - Include tools for user management
+
+- Search Functionality:
+  - Implement a search feature to help users find specific products easily
+
+- Responsive Design:
+  - Ensure the website is mobile-friendly
+  - Optimize the website to work well on various devices
 
 ## Technologies Used
 
