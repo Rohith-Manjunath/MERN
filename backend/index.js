@@ -10,7 +10,9 @@ const Product = require("./db/ProductsSchema");
 const Liked = require("./db/likedProduct");
 const Cart = require("./db/cart");
 app.use(cors());
+const saltRounds = 10;
 app.use(express.json());
+const bcrypt = require("bcrypt");
 
 app.get("/", (req, res) => {
   res.json("Home");
@@ -19,43 +21,100 @@ app.get("/", (req, res) => {
 app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
-  let find = await User.findOne({ email: email });
+  try {
+    let find = await User.findOne({ email: email });
 
-  if (find) {
-    res.status(400).json({ Error: "User already exists" });
-  } else {
-    try {
-      let user = await User.create({
-        name: name,
-        email: email,
-        password: password,
-      });
-      let newUser = user.toObject();
-      const token = jwt.sign(newUser, "secretKey", { expiresIn: "5h" });
-      res.json({ message: "Register Successful", token: token });
-    } catch (e) {
-      return res.sendStatus(500), console.error(e);
+    if (find) {
+      return res.status(400).json({ Error: "User already exists" });
     }
+
+    const hashedPassword = await hashPassword(password);
+
+    let user = await User.create({
+      name: name,
+      email: email,
+      password: hashedPassword,
+    });
+
+    let newUser = user.toObject();
+    const token = generateToken(newUser);
+
+    res.json({ message: "Register Successful", token: token });
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
   }
 });
+
+// Function to hash a password
+async function hashPassword(password) {
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return hashedPassword;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Function to generate a JWT token
+function generateToken(user) {
+  const token = jwt.sign(user, "secretKey", { expiresIn: "5h" });
+  return token;
+}
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  let find = await User.findOne({ email: email, password: password });
+  try {
+    let user = await User.findOne({ email: email });
 
-  if (find) {
-    try {
-      let newUser = find.toObject();
-      const token = jwt.sign(newUser, "secretKey", { expiresIn: "5h" });
-      res.status(200).json({ message: "Login successful", token });
-    } catch (e) {
-      return res.sendStatus(500).json(e);
+    if (!user) {
+      return res.status(401).json({ Error: "No user exists" });
     }
-  } else {
-    res.status(401).json({ Error: "No user exists" });
+
+    const isMatch = await comparePasswords(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ Error: "Invalid password" });
+    }
+
+    const token = generateToken(user.toObject());
+
+    res.status(200).json({ message: "Login successful", token });
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
   }
 });
+
+// Function to compare a password against a hash
+async function comparePasswords(password, hash) {
+  try {
+    const isMatch = await bcrypt.compare(password, hash);
+    return isMatch;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Function to generate a JWT token
+function generateToken(user) {
+  const token = jwt.sign(user, "secretKey", { expiresIn: "5h" });
+  return token;
+}
+
+function verifyToken(req, res, next) {
+  const bearerHeader = req.headers["authorization"];
+
+  if (typeof bearerHeader != undefined) {
+    const bearerToken = bearerHeader.split(" ")[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.json("Error");
+  }
+}
 
 app.get("/products", verifyToken, async (req, res) => {
   jwt.verify(req.token, "secretKey", async (err, authdata) => {
@@ -201,18 +260,6 @@ app.get("/filter4", async (req, res) => {
   let filter = await Product.find({ Price: { $gte: 31000, $lte: 40000 } });
   res.json(filter);
 });
-
-function verifyToken(req, res, next) {
-  const bearerHeader = req.headers["authorization"];
-
-  if (typeof bearerHeader != undefined) {
-    const bearerToken = bearerHeader.split(" ")[1];
-    req.token = bearerToken;
-    next();
-  } else {
-    res.json("Error");
-  }
-}
 
 app.get("/search/:key", async (req, res) => {
   const searchKey = req.params.key;
