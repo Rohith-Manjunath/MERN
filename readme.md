@@ -1,5 +1,5 @@
 # E-Commerce Website 
-![Alt Text](image.png)
+![sample website image](image.png)
 
 
 
