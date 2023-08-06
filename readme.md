@@ -1,7 +1,10 @@
 # E-Commerce Website 
 
+<<<<<<< HEAD
 ![Image Description](image.png)
 
+=======
+>>>>>>> 317168047e6ee696766433a243019759aa397055
 
 ## Table of Contents
 
