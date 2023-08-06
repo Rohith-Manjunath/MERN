@@ -1,10 +1,9 @@
 # E-Commerce Website 
-![Alt Text](website.png)
+![Alt Text](image.png)
 
 
 
-=======
->>>>>>> 317168047e6ee696766433a243019759aa397055
+
 
 ## Table of Contents
 
