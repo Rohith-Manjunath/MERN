@@ -20,13 +20,10 @@ const UpdateProduct = () => {
   }, []);
 
   async function getProduct() {
-    let result = await fetch(
-      `http://localhost:2000/updateProduct/${params.id}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    let result = await fetch(`http://localhost:2000/${params.id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
 
     result = await result.json();
     if (result) {
@@ -37,14 +34,11 @@ const UpdateProduct = () => {
   async function Update(e) {
     e.preventDefault();
 
-    let result = await fetch(
-      `http://localhost:2000/updateProduct/${params.id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ImageUrl, Model, Price, Description }),
-      }
-    );
+    let result = await fetch(`http://localhost:2000/${params.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ImageUrl, Model, Price, Description }),
+    });
 
     result = await result.json();
     if (result) {
