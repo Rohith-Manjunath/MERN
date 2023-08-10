@@ -8,22 +8,32 @@ const AddProducts = () => {
   const [Category, setCategory] = useState("");
 
   async function addProducts(e) {
-    e.preventDefault();
+    if (Category !== "Mobile" && Category !== "Laptop") {
+      alert("Category type should be Mobile/Laptop");
+    } else {
+      e.preventDefault();
 
-    let result = await fetch(
-      "https://e-commerce-website-is92.onrender.com/products",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ ImageUrl, Model, Price, Description, Category }),
-      }
-    );
+      let result = await fetch(
+        "https://e-commerce-website-is92.onrender.com/products",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            ImageUrl,
+            Model,
+            Price,
+            Description,
+            Category,
+          }),
+        }
+      );
 
-    result = await result.json();
-    window.location.href = "/products";
+      result = await result.json();
+      window.location.href = "/products";
+    }
   }
 
   return (
