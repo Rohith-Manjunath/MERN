@@ -104,27 +104,20 @@ function generateToken(user) {
   return token;
 }
 
-function verifyToken(req, res, next) {
-  const bearerHeader = req.headers["authorization"];
-
-  if (typeof bearerHeader != undefined) {
-    const bearerToken = bearerHeader.split(" ")[1];
-    req.token = bearerToken;
-    next();
-  } else {
-    res.json("Error");
-  }
-}
-
 app.get("/products", verifyToken, async (req, res) => {
-  jwt.verify(req.token, "secretKey", async (err, authdata) => {
-    if (err) {
-      res.status(401).json("Unauthorized User");
-    } else {
-      let findProducts = await Product.find();
-      res.json(findProducts);
-    }
-  });
+  try {
+    jwt.verify(req.token, "secretKey", async (err, authdata) => {
+      if (err) {
+        res.status(401).json({ error: "Unauthorized User" });
+      } else {
+        let findProducts = await Product.find();
+        res.json(findProducts);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.post("/products", async (req, res) => {
@@ -146,119 +139,197 @@ app.post("/products", async (req, res) => {
 });
 
 app.get("/updateProduct/:id", async (req, res) => {
-  let product = await Product.findOne({ _id: req.params.id });
-  res.json(product);
-});
-app.put("/updateProduct/:id", async (req, res) => {
-  let product = await Product.updateOne(
-    { _id: req.params.id },
-
-    {
-      $set: req.body,
+  try {
+    let product = await Product.findOne({ _id: req.params.id });
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).json({ error: "Product not found" });
     }
-  );
-
-  if (product) {
-    res.status(200).json("Product updated successfully");
-  } else {
-    res.status(400).json("Something went wrong");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
+app.put("/updateProduct/:id", async (req, res) => {
+  try {
+    let updatedProduct = await Product.updateOne(
+      { _id: req.params.id },
+      { $set: req.body }
+    );
+
+    if (updatedProduct.nModified > 0) {
+      res.status(200).json("Product updated successfully");
+    } else {
+      res.status(404).json({ error: "Product not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// ... (your imports and setup)
+
 app.delete("/product/:id", async (req, res) => {
-  let product = await Product.deleteOne({ _id: req.params.id });
-  if (product) {
-    res.status(200).json("Product deleted Successfully");
-  } else {
-    res.status(400).json("something went wrong");
+  try {
+    let product = await Product.deleteOne({ _id: req.params.id });
+    if (product.deletedCount > 0) {
+      res.status(200).json("Product deleted Successfully");
+    } else {
+      res.status(404).json({ error: "Product not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 app.post("/liked/:id", async (req, res) => {
-  let product = await Product.findOne({ _id: req.params.id });
+  try {
+    let product = await Product.findOne({ _id: req.params.id });
 
-  if (product) {
-    let liked = await Liked.create({
-      ImageUrl: product.ImageUrl,
-      Model: product.Model,
-      Price: product.Price,
-      Description: product.Description,
-    });
+    if (product) {
+      let liked = await Liked.create({
+        ImageUrl: product.ImageUrl,
+        Model: product.Model,
+        Price: product.Price,
+        Description: product.Description,
+      });
 
-    res.status(200).json(liked);
+      res.status(200).json(liked);
+    } else {
+      res.status(404).json({ error: "Product not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 app.get("/liked", async (req, res) => {
-  let product = await Liked.find();
+  try {
+    let product = await Liked.find();
 
-  if (product) {
-    res.status(200).json(product);
-  } else {
-    res.status(400).json({ Error: "something went wrong" });
+    if (product) {
+      res.status(200).json(product);
+    } else {
+      res.status(400).json({ Error: "No liked products found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-app.get("/cart", async (req, res) => {
-  let product = await Cart.find();
+// ... (your imports and setup)
 
-  if (product) {
-    res.status(200).json(product);
-  } else {
-    res.status(400).json({ Error: "something went wrong" });
+app.get("/cart", async (req, res) => {
+  try {
+    let product = await Cart.find();
+
+    if (product) {
+      res.status(200).json(product);
+    } else {
+      res.status(404).json({ error: "No products in the cart" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 app.post("/cart/:id", async (req, res) => {
-  let product = await Product.findOne({ _id: req.params.id });
+  try {
+    let product = await Product.findOne({ _id: req.params.id });
 
-  if (product) {
-    let liked = await Cart.create({
-      ImageUrl: product.ImageUrl,
-      Model: product.Model,
-      Price: product.Price,
-      Description: product.Description,
-    });
+    if (product) {
+      let liked = await Cart.create({
+        ImageUrl: product.ImageUrl,
+        Model: product.Model,
+        Price: product.Price,
+        Description: product.Description,
+      });
 
-    res.status(200).json(liked);
+      res.status(200).json(liked);
+    } else {
+      res.status(404).json({ error: "Product not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 app.delete("/removeCart/:id", async (req, res) => {
-  let product = await Cart.deleteOne({ _id: req.params.id });
-  if (product) {
-    res.status(200).json("Item Removed Successfully");
-  } else {
-    res.status(400).json("something went wrong");
+  try {
+    let product = await Cart.deleteOne({ _id: req.params.id });
+    if (product.deletedCount > 0) {
+      res.status(200).json("Item Removed Successfully");
+    } else {
+      res.status(404).json({ error: "Item not found in the cart" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 app.delete("/removeLiked/:id", async (req, res) => {
-  let product = await Liked.deleteOne({ _id: req.params.id });
-  if (product) {
-    res.status(200).json("Item Removed Successfully");
-  } else {
-    res.status(400).json("something went wrong");
+  try {
+    let product = await Liked.deleteOne({ _id: req.params.id });
+    if (product.deletedCount > 0) {
+      res.status(200).json("Item Removed Successfully");
+    } else {
+      res.status(404).json({ error: "Item not found in the liked list" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
+// ... (your imports and setup)
+
 app.get("/filter1", async (req, res) => {
-  let filter = await Product.find({ Price: { $gte: 1000, $lte: 10000 } });
-  res.json(filter);
+  try {
+    let filter = await Product.find({ Price: { $gte: 1000, $lte: 10000 } });
+    res.json(filter);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.get("/filter2", async (req, res) => {
-  let filter = await Product.find({ Price: { $gte: 11000, $lte: 20000 } });
-  res.json(filter);
+  try {
+    let filter = await Product.find({ Price: { $gte: 11000, $lte: 20000 } });
+    res.json(filter);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+
 app.get("/filter3", async (req, res) => {
-  let filter = await Product.find({ Price: { $gte: 21000, $lte: 30000 } });
-  res.json(filter);
+  try {
+    let filter = await Product.find({ Price: { $gte: 21000, $lte: 30000 } });
+    res.json(filter);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.get("/filter4", async (req, res) => {
-  let filter = await Product.find({ Price: { $gte: 31000, $lte: 40000 } });
-  res.json(filter);
+  try {
+    let filter = await Product.find({ Price: { $gte: 31000, $lte: 40000 } });
+    res.json(filter);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.get("/search/:key", async (req, res) => {
@@ -282,14 +353,39 @@ app.get("/search/:key", async (req, res) => {
   }
 });
 
+// ... (your imports and setup)
+
 app.get("/products/laptops", async (req, res) => {
-  let mobile = await Product.find({ Category: "Laptop" });
-  res.json(mobile);
+  try {
+    let laptops = await Product.find({ Category: "Laptop" });
+    res.json(laptops);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+
 app.get("/products/mobiles", async (req, res) => {
-  let mobile = await Product.find({ Category: "Mobile" });
-  res.json(mobile);
+  try {
+    let mobiles = await Product.find({ Category: "Mobile" });
+    res.json(mobiles);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+
+function verifyToken(req, res, next) {
+  const bearerHeader = req.headers["authorization"];
+
+  if (typeof bearerHeader != undefined) {
+    const bearerToken = bearerHeader.split(" ")[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.json("Error");
+  }
+}
 
 if (config) {
   app.listen(process.env.PORT, () => {
