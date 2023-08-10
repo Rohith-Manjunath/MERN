@@ -387,6 +387,11 @@ function verifyToken(req, res, next) {
   }
 }
 
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", reason.stack || reason);
+  process.exit(1);
+});
+
 if (config) {
   app.listen(process.env.PORT, () => {
     console.log(`Server Started on ${process.env.PORT}`);
