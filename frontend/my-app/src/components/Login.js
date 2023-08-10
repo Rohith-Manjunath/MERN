@@ -16,11 +16,14 @@ const Login = () => {
     if (!email && !password) {
       alert("All fields are required");
     } else {
-      let result = await fetch("http://localhost:2000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      let result = await fetch(
+        "https://e-commerce-website-is92.onrender.com/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       result = await result.json();
 

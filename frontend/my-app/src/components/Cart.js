@@ -11,7 +11,7 @@ const Cart = () => {
 
   async function getProducts() {
     try {
-      fetch("http://localhost:2000/cart", {
+      fetch("https://e-commerce-website-is92.onrender.com/cart", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -26,10 +26,13 @@ const Cart = () => {
 
   async function RemoveItem(id) {
     if (window.confirm("Are you sure you wanna delete this item??")) {
-      let result = await fetch(`http://localhost:2000/removeCart/${id}`, {
-        method: "Delete",
-        headers: { "Content-Type": "application/json" },
-      });
+      let result = await fetch(
+        `https://e-commerce-website-is92.onrender.com/removeCart/${id}`,
+        {
+          method: "Delete",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       result = await result.json();
       getProducts();

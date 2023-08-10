@@ -10,7 +10,7 @@ const LikedProducts = () => {
 
   async function getProducts() {
     try {
-      fetch("http://localhost:2000/liked", {
+      fetch("https://e-commerce-website-is92.onrender.com/liked", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -25,10 +25,13 @@ const LikedProducts = () => {
 
   async function RemoveItem(id) {
     if (window.confirm("Are you sure you wanna remove this item??")) {
-      let result = await fetch(`http://localhost:2000/removeLiked/${id}`, {
-        method: "Delete",
-        headers: { "Content-Type": "application/json" },
-      });
+      let result = await fetch(
+        `https://e-commerce-website-is92.onrender.com/removeLiked/${id}`,
+        {
+          method: "Delete",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       result = await result.json();
       getProducts();
