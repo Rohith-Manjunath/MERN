@@ -14,7 +14,7 @@ const Products = () => {
   async function getProducts() {
     setFilter("All Products");
     try {
-      fetch("http://localhost:2000/products", {
+      fetch("https://e-commerce-website-is92.onrender.com/products", {
         method: "GET",
         headers: {
           authorization: `bearer ${localStorage.getItem("token")}`,
@@ -28,10 +28,13 @@ const Products = () => {
   }
   async function DeleteProduct(id) {
     if (window.confirm("are you sure you wanna delete this product?")) {
-      let result = await fetch(`http://localhost:2000/product/${id}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      });
+      let result = await fetch(
+        `https://e-commerce-website-is92.onrender.com/product/${id}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       result = await result.json();
       if (result) {
@@ -43,10 +46,13 @@ const Products = () => {
   }
 
   async function Like(id) {
-    let result = await fetch(`http://localhost:2000/liked/${id}`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-    });
+    let result = await fetch(
+      `https://e-commerce-website-is92.onrender.com/liked/${id}`,
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+      }
+    );
 
     result = await result.json();
 
@@ -54,10 +60,13 @@ const Products = () => {
   }
 
   async function Cart(id) {
-    let result = await fetch(`http://localhost:2000/cart/${id}`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-    });
+    let result = await fetch(
+      `https://e-commerce-website-is92.onrender.com/cart/${id}`,
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+      }
+    );
 
     result = await result.json();
 
@@ -66,59 +75,74 @@ const Products = () => {
 
   async function Filter1() {
     setFilter("1000RS - 10000RS");
-    let result = await fetch("http://localhost:2000/filter1", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let result = await fetch(
+      "https://e-commerce-website-is92.onrender.com/filter1",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     result = await result.json();
     setProducts(result);
   }
   async function Filter2() {
     setFilter("11000RS - 20000RS");
 
-    let result = await fetch("http://localhost:2000/filter2", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let result = await fetch(
+      "https://e-commerce-website-is92.onrender.com/filter2",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     result = await result.json();
     setProducts(result);
   }
   async function Filter3() {
     setFilter("21000RS - 30000RS");
 
-    let result = await fetch("http://localhost:2000/filter3", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let result = await fetch(
+      "https://e-commerce-website-is92.onrender.com/filter3",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     result = await result.json();
     setProducts(result);
   }
   async function Filter4() {
     setFilter("31000RS - 40000RS");
 
-    let result = await fetch("http://localhost:2000/filter4", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let result = await fetch(
+      "https://e-commerce-website-is92.onrender.com/filter4",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     result = await result.json();
     setProducts(result);
   }
 
   async function Search(e) {
-    let result = await fetch(`http://localhost:2000/search/${e.target.value}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let result = await fetch(
+      `https://e-commerce-website-is92.onrender.com/search/${e.target.value}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     result = await result.json();
     if (result) {
@@ -129,24 +153,30 @@ const Products = () => {
   async function getLaptops() {
     setFilter("Laptops");
 
-    let result = await fetch("http://localhost:2000/products/laptops", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let result = await fetch(
+      "https://e-commerce-website-is92.onrender.com/products/laptops",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     result = await result.json();
     setProducts(result);
   }
   async function getMobiles() {
     setFilter("Laptops");
 
-    let result = await fetch("http://localhost:2000/products/mobiles", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let result = await fetch(
+      "https://e-commerce-website-is92.onrender.com/products/mobiles",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     result = await result.json();
     setProducts(result);
   }

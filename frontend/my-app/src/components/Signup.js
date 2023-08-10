@@ -13,11 +13,14 @@ const Signup = () => {
     if (!name && !email && !password) {
       alert("All fields are required");
     } else {
-      let result = await fetch("http://localhost:2000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      });
+      let result = await fetch(
+        "https://e-commerce-website-is92.onrender.com/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
 
       result = await result.json();
 

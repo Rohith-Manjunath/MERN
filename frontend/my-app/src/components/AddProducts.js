@@ -10,14 +10,17 @@ const AddProducts = () => {
   async function addProducts(e) {
     e.preventDefault();
 
-    let result = await fetch("http://localhost:2000/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `bearer ${localStorage.getItem("token")}`,
-      },
-      body: JSON.stringify({ ImageUrl, Model, Price, Description, Category }),
-    });
+    let result = await fetch(
+      "https://e-commerce-website-is92.onrender.com/products",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ ImageUrl, Model, Price, Description, Category }),
+      }
+    );
 
     result = await result.json();
     window.location.href = "/products";
@@ -53,7 +56,7 @@ const AddProducts = () => {
       />
       <input
         type="text"
-        placeholder="Enter Category"
+        placeholder="Enter Category (Mobile/Laptop)"
         required
         onChange={(e) => setCategory(e.target.value)}
       />
