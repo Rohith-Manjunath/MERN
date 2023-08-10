@@ -9,6 +9,8 @@ const Navbar = () => {
     if (window.confirm("Are You sure , You wanna log out???")) {
       localStorage.clear();
       window.location.href = "/login";
+    } else {
+      window.location.href = "/products";
     }
   }
 

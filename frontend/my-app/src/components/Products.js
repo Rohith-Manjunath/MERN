@@ -166,7 +166,7 @@ const Products = () => {
     setProducts(result);
   }
   async function getMobiles() {
-    setFilter("Laptops");
+    setFilter("Mobiles");
 
     let result = await fetch(
       "https://e-commerce-website-is92.onrender.com/products/mobiles",
