@@ -10,7 +10,8 @@
 1. [Introduction](#introduction)
 2. [Features](#features)
 3. [Technologies Used](#technologies-used)
-4. [Stay-in-Touch](#Stay-in-Touch)
+4. - [Live-Link](#Live-link)
+5. [Stay-in-Touch](#Stay-in-Touch)
 
 
 ## Introduction
@@ -61,6 +62,10 @@ Certainly! Here are the features with bullet points and dashes, including the de
 - React: A frontend JavaScript library for building user interfaces.
 - Node.js: A JavaScript runtime for executing server-side code.
 - Redux: A predictable state container for managing application state.
+
+  ## Live-link
+
+[Live-Link](https://e-commerce-rohith.netlify.app/)
 
 ## Stay-in-Touch
 
