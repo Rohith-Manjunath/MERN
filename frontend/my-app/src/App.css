@@ -1,45 +1,45 @@
-*{
+/* App.css */
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.Navbar{
+html {
+  overflow: scroll;
+}
+
+body {
+  overflow: hidden;
+}
+
+.Navbar {
   background-color: black;
   height: 3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
 }
 
-.Navbar ul{
+
+.Navbar ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   list-style-type: none;
   margin: 1rem;
-
 }
 
-.Navbar ul li a{
-  color:white ;
+.Navbar ul li a {
+  color: white;
   text-decoration: none;
   transition: all 0.4s;
   font-size: 1.3rem;
 }
 
-.Navbar ul li a:hover{
-
-  background-color: white;
-    color: black;
-    padding: 0 0.5rem;
-    border-radius: 0.3rem;
-    text-align: center;
-}
-
-.Navbar ul li a.active{
+.Navbar ul li a:hover {
   background-color: white;
   color: black;
   padding: 0 0.5rem;
@@ -47,43 +47,49 @@
   text-align: center;
 }
 
-.nav-right{
+.Navbar ul li a.active {
+  background-color: white;
+  color: black;
+  padding: 0 0.5rem;
+  border-radius: 0.3rem;
+  text-align: center;
+}
+
+.ham {
+  display: none;
+}
+
+.nav-right {
   margin-right: 2rem;
 }
 
-
-.nav-right h2{
+.nav-right h2 {
   color: white;
-  margin-bottom: 1.2rem;
-
+  margin-bottom: 2.5rem;
 }
 
-
-.signup-container{
-
+.signup-container {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 1rem;
   margin: 2rem auto;
-  width:max-content;
+  width: max-content;
   border: 1px solid black;
-width: 30%;
-height: 30rem;
-border-radius: 1rem;
+  width: 30%;
+  height: 30rem;
+  border-radius: 1rem;
 }
 
-.signup-container input{
+.signup-container input {
   border-radius: 1rem;
   border: 1px solid black;
   padding: 0.5rem;
   width: 80%;
 }
 
-
-
-.btn{
+.btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -91,9 +97,7 @@ border-radius: 1rem;
   width: 80%;
 }
 
-
-
-.signup-container button{
+.signup-container button {
   padding: 0.5rem;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
@@ -105,26 +109,26 @@ border-radius: 1rem;
   width: 8rem;
 }
 
-.signup-container button:hover{
+.signup-container button:hover {
   cursor: pointer;
 }
 
-.signup-container button:active{
+.signup-container button:active {
   box-shadow: none;
-  transform: translate(2px,2px);
+  transform: translate(2px, 2px);
 }
 
-.items-container{
+.items-container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   margin: 2rem auto;
   width: 95vw;
-flex-wrap: wrap;
-padding: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
 }
 
-.items{
+.items {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -134,46 +138,44 @@ padding: 1rem;
   gap: 1rem;
   border-radius: 0.5rem;
   transition: all 0.5s;
-  box-shadow: 0 0 40px  rgb(166, 162, 162);
+  box-shadow: 0 0 40px rgb(166, 162, 162);
   height: 22rem;
-
 }
 
-.items:hover{
+.items:hover {
   cursor: pointer;
-  transform: translate(-5px,-5px);
-
+  transform: translate(-5px, -5px);
 }
 
-.img-container{
-  width: 20%;
+.img-container {
+  width: 40%;
   height: 100%;
 }
 
-.item-details{
+.item-details {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-padding: 1rem;
-height: 100%;
-align-items: flex-start;
-justify-content: center;
-
+  padding: 1rem;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.items img{
-width: 100%;
-height: 100%;
+.items img {
+  width: 100%;
+  height: 100%;
 }
 
-.item-details span{
+.item-details span {
   background-color: black;
   color: white;
   border-radius: 0.2rem;
   padding: 0.1rem 0.5rem;
 }
 
-.item-details a,.item-details button{
+.item-details a,
+.item-details button {
   text-decoration: none;
   background-color: rgb(255, 255, 255);
   text-align: center;
@@ -184,78 +186,676 @@ height: 100%;
   font-weight: bold;
   color: rgb(0, 0, 0);
   border: 1px solid rgb(222, 219, 219);
-width: 8rem;
-padding: 0.2rem;
+  width: 8rem;
+  padding: 0.2rem;
 }
 
-.item-details a:hover,.item-details button:hover{
+.item-details a:hover,
+.item-details button:hover {
   cursor: pointer;
 }
 
-.item-details button:active,.item-details a:active{
-
+.item-details button:active,
+.item-details a:active {
   box-shadow: none;
-  transform: translate(1px,2px);
-
+  transform: translate(1px, 2px);
 }
 
-.update-delete{
+.update-delete {
   display: flex;
   gap: 1rem;
 }
 
-
-.addProductLink{
+.addProductLink {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
-.addProductLink a{
+.addProductLink a {
   font-size: 1.2rem;
 }
 
-.filter-container{
+.filter-container {
   margin: 0.5rem;
 }
 
-
-.filters{
-
+.filters {
   display: flex;
   gap: 2rem;
-align-items: center;
-justify-content: center;
+  align-items: center;
+  justify-content: center;
   height: 3rem;
-  
-
 }
 
-.filters button{
-padding: 0.2rem 0.5rem;
-outline: none;
-border: none;
-background-color: rgb(16, 54, 120);
-border-radius: 1rem;
-margin: 0.2rem;
-color: white;
-font-weight: bold;
-height: 70%;
+.filters button {
+  padding: 0.2rem 0.5rem;
+  outline: none;
+  border: none;
+  background-color: rgb(16, 54, 120);
+  border-radius: 1rem;
+  margin: 0.2rem;
+  color: white;
+  font-weight: bold;
+  height: 70%;
+  transition: all 0.4s;
 }
 
+.filters button:focus{
+  background-color: rgb(7, 85, 255);
+}
 
-
-
-
-.filters button:hover{
+.filters button:hover {
   cursor: pointer;
 }
 
-.filters input{
+.filters input {
   border-radius: 0.5rem;
   outline: none;
   padding: 0.5rem;
   width: 20rem;
   font-size: 1.1rem;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  html {
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+
+  body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
+  .ham {
+    display: block;
+  }
+
+  .Navbar {
+    background-color: black;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .Navbar ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0rem;
+    list-style-type: none;
+    margin: 1rem;
+    flex-direction: row;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    flex-direction: column;
+    top: 2rem;
+    left: -30rem;
+    width: 100%;
+    height: 28rem;
+    z-index: 2;
+    padding: 1rem;
+  }
+
+  .hamburger-icon{
+    margin: 1rem 0 0 1rem;
+    font-size: 1.5rem;
+  }
+
+  .Navbar h2 {
+    display: block;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+  }
+
+  .Navbar ul li a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.4s;
+    font-size: 1rem;
+  }
+
+  .Navbar ul li a:hover {
+    background-color: white;
+    color: black;
+    padding: 0 0.5rem;
+    border-radius: 0.3rem;
+    text-align: center;
+  }
+
+  .Navbar ul li a.active {
+    background-color: white;
+    color: black;
+    padding: 0 0.5rem;
+    border-radius: 0.3rem;
+    text-align: center;
+  }
+
+  .nav-right {
+    margin-right: 2rem;
+  }
+
+  .nav-right h2 {
+    color: white;
+    margin-bottom: 1.2rem;
+  }
+
+  .signup-container {
+    width: 95%;
+    height: 25rem;
+    border-radius: 1rem;
+  }
+
+  .signup-container input {
+    width: 90%;
+  }
+
+  .items {
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .items:hover {
+    cursor: pointer;
+    transform: translate(-5px, -5px);
+  }
+
+  .img-container {
+    width: 80%;
+    height: 100%;
+  }
+
+  .item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.1rem;
+    height: 100%;
+    width: 100%;
+  }
+
+  .items img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .item-details span {
+    background-color: black;
+    color: white;
+    border-radius: 0.2rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 1rem;
+  }
+
+  .item-details a,
+  .item-details button {
+    font-size: 0.8rem;
+    width: 7rem;
+    padding: 0.2rem;
+  }
+
+  .update-delete {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .addProductLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .addProductLink a {
+    font-size: 1.2rem;
+  }
+
+  .filter-container {
+    margin: 0.5rem;
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+  }
+
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    height: auto; /* Let the height adjust based on content */
+  }
+
+  .filters button {
+    padding: 0.2rem 0.5rem;
+    outline: none;
+    border: none;
+    background-color: rgb(16, 54, 120);
+    border-radius: 1rem;
+    margin: 0.2rem;
+    color: white;
+    font-weight: bold;
+    /* Height is determined by content, not a fixed percentage */
+  }
+
+  .filters input {
+    border-radius: 0.5rem;
+    outline: none;
+    padding: 0.5rem;
+    width: 100%; /* Adjust the width to fill the container */
+    font-size: 1.1rem;
+  }
+  
+
+}
+
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+ 
+
+  html {
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+
+  body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
+  .ham {
+    display: block;
+  }
+
+  .Navbar {
+    background-color: black;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .Navbar ul {
+    margin: 1rem;
+    flex-direction: row;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    flex-direction: column;
+    top: 2rem;
+    left: -20rem;
+    width: 30%;
+    height: 28rem;
+    z-index: 2;
+    padding: 1rem;
+    align-items: center;
+  }
+
+  .hamburger-icon{
+    margin: 1rem 0 0 1rem;
+    font-size: 1.5rem;
+  }
+
+  .Navbar h2 {
+    display: block;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+  }
+
+  .Navbar ul li a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.4s;
+    font-size: 1rem;
+  }
+
+  .Navbar ul li a:hover {
+    background-color: white;
+    color: black;
+    padding: 0 0.5rem;
+    border-radius: 0.3rem;
+    text-align: center;
+  }
+
+  .Navbar ul li a.active {
+    background-color: white;
+    color: black;
+    padding: 0 0.5rem;
+    border-radius: 0.3rem;
+    text-align: center;
+  }
+
+  .nav-right {
+    margin-right: 2rem;
+  }
+
+  .nav-right h2 {
+    color: white;
+    margin-bottom: 1.2rem;
+  }
+
+  .signup-container {
+    width: 95%;
+    height: 25rem;
+    border-radius: 1rem;
+  }
+
+  .signup-container input {
+    width: 90%;
+  }
+
+  .items {
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .items:hover {
+    cursor: pointer;
+    transform: translate(-5px, -5px);
+  }
+
+  .img-container {
+    width: 80%;
+    height: 100%;
+  }
+
+  .item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.1rem;
+    height: 100%;
+    width: 100%;
+  }
+
+  .items img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .item-details span {
+    background-color: black;
+    color: white;
+    border-radius: 0.2rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 1rem;
+  }
+
+  .item-details a,
+  .item-details button {
+    font-size: 0.8rem;
+    width: 7rem;
+    padding: 0.2rem;
+  }
+
+  .update-delete {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .addProductLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .addProductLink a {
+    font-size: 1.2rem;
+  }
+
+  .filter-container {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    height: auto; /* Let the height adjust based on content */
+  }
+
+  .filters button {
+    padding: 0.2rem 0.5rem;
+    outline: none;
+    border: none;
+    background-color: rgb(16, 54, 120);
+    border-radius: 1rem;
+    margin: 0.2rem;
+    color: white;
+    font-weight: bold;
+    /* Height is determined by content, not a fixed percentage */
+  }
+
+  .filters input {
+    border-radius: 0.5rem;
+    outline: none;
+    padding: 0.5rem;
+    width: 100%; /* Adjust the width to fill the container */
+    font-size: 1.1rem;
+  }
+  
+
+}
+
+
+
+@media (769px <= width <=1200px){
+ 
+
+  html {
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+
+  body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
+  .ham {
+    display: block;
+  }
+
+  .Navbar {
+    background-color: black;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .Navbar ul {
+    margin: 1rem;
+    flex-direction: row;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    flex-direction: column;
+    top: 2rem;
+    left: -20rem;
+    width: 30%;
+    height: 28rem;
+    z-index: 2;
+    padding: 1rem;
+    align-items: center;
+  }
+
+  .hamburger-icon{
+    margin: 1rem 0 0 1rem;
+    font-size: 1.5rem;
+  }
+
+  .Navbar h2 {
+    display: block;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+  }
+
+  .Navbar ul li a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.4s;
+    font-size: 1rem;
+  }
+
+  .Navbar ul li a:hover {
+    background-color: white;
+    color: black;
+    padding: 0 0.5rem;
+    border-radius: 0.3rem;
+    text-align: center;
+  }
+
+  .Navbar ul li a.active {
+    background-color: white;
+    color: black;
+    padding: 0 0.5rem;
+    border-radius: 0.3rem;
+    text-align: center;
+  }
+
+  .nav-right {
+    margin-right: 2rem;
+  }
+
+  .nav-right h2 {
+    color: white;
+    margin-bottom: 1.2rem;
+  }
+
+  .signup-container {
+    width: 95%;
+    height: 25rem;
+    border-radius: 1rem;
+  }
+
+  .signup-container input {
+    width: 90%;
+  }
+
+  .items {
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .items:hover {
+    cursor: pointer;
+    transform: translate(-5px, -5px);
+  }
+
+  .img-container {
+    width: 80%;
+    height: 100%;
+  }
+
+  .item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.1rem;
+    height: 100%;
+    width: 100%;
+  }
+
+  .items img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .item-details span {
+    background-color: black;
+    color: white;
+    border-radius: 0.2rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 1rem;
+  }
+
+  .item-details a,
+  .item-details button {
+    font-size: 0.8rem;
+    width: 7rem;
+    padding: 0.2rem;
+  }
+
+  .update-delete {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .addProductLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .addProductLink a {
+    font-size: 1.2rem;
+  }
+
+  .filter-container {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    height: auto; /* Let the height adjust based on content */
+  }
+
+  .filters button {
+    padding: 0.2rem 0.5rem;
+    outline: none;
+    border: none;
+    background-color: rgb(16, 54, 120);
+    border-radius: 1rem;
+    margin: 0.2rem;
+    color: white;
+    font-weight: bold;
+    /* Height is determined by content, not a fixed percentage */
+  }
+
+  .filters input {
+    border-radius: 0.5rem;
+    outline: none;
+    padding: 0.5rem;
+    width: 100%; /* Adjust the width to fill the container */
+    font-size: 1.1rem;
+  }
+  
+
 }

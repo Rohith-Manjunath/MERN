@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { IoClose } from "react-icons/io5";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faRotate } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 
 const Navbar = () => {
+  const [bool, setBool] = useState(true);
+
   let auth = localStorage.getItem("user");
 
   function clearLocalStorage() {
-    if (window.confirm("Are You sure , You wanna log out???")) {
+    if (window.confirm("Are You sure, You wanna log out???")) {
       localStorage.clear();
       window.location.href = "/login";
     } else {
@@ -16,14 +21,21 @@ const Navbar = () => {
 
   let name = JSON.parse(localStorage.getItem("user"));
 
+  function toggle() {
+    setBool(!bool);
+    console.log(bool);
+  }
+
   return (
     <div className="Navbar">
-      <ul>
+      <ul
+        style={{
+          transform: bool ? "translateX(0)" : "translateX(28rem)",
+          transition: "all 0.5s ",
+        }}
+      >
         {auth ? (
           <>
-            <li>
-              <NavLink to="/products">Products</NavLink>
-            </li>
             <li>
               <NavLink to="/addProducts">Add Products</NavLink>
             </li>
@@ -56,9 +68,20 @@ const Navbar = () => {
 
       <div className="nav-right">
         {name ? (
-          <li>
-            <h2>Hey 👋 {name.name}</h2>
-          </li>
+          <>
+            <li
+              style={{
+                color: "white",
+                listStyle: "none",
+              }}
+              onClick={toggle}
+            >
+              <FontAwesomeIcon icon={faBars} className="hamburger-icon" />
+            </li>
+            <li>
+              <h2>Hey 👋 {name.name}</h2>
+            </li>
+          </>
         ) : (
           " "
         )}
