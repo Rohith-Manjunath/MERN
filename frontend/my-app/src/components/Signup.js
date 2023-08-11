@@ -60,6 +60,9 @@ const Signup = () => {
       <button type="submit" onClick={handleClick}>
         Register
       </button>
+      <p>
+        Already a user?? <Link to="/login">Login Here</Link>{" "}
+      </p>
     </div>
   );
 };
