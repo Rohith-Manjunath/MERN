@@ -3,12 +3,14 @@ import { NavLink } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faRotate } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
 import "../App.css";
 
 const Navbar = () => {
   const [bool, setBool] = useState(true);
 
   let auth = localStorage.getItem("user");
+  const params = useParams();
 
   function clearLocalStorage() {
     if (window.confirm("Are You sure, You wanna log out???")) {
@@ -23,7 +25,6 @@ const Navbar = () => {
 
   function toggle() {
     setBool(!bool);
-    console.log(bool);
   }
 
   return (
@@ -37,10 +38,15 @@ const Navbar = () => {
         {auth ? (
           <>
             <li>
+              <NavLink to="/products">Products</NavLink>
+            </li>
+            <li>
               <NavLink to="/addProducts">Add Products</NavLink>
             </li>
             <li>
-              <NavLink to="/updateProduct">Update Products</NavLink>
+              <NavLink to={`/updateProduct/${params.id}`}>
+                Update Products
+              </NavLink>
             </li>
             <li>
               <NavLink to="/likedProducts">Liked Products</NavLink>
