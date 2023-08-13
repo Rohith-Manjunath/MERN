@@ -1,19 +1,15 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const UpdateProduct = () => {
-  const [ImageUrl, setImgurl] = useState("");
-  const [Model, setModel] = useState("");
-  const [Price, setPrice] = useState("");
-  const [Description, setDescription] = useState("");
-  const params = useParams();
   const [product, setProduct] = useState({
     ImageUrl: "",
     Model: "",
     Price: "",
     Description: "",
   });
+
+  const params = useParams();
 
   useEffect(() => {
     getProduct();
@@ -37,19 +33,33 @@ const UpdateProduct = () => {
   async function Update(e) {
     e.preventDefault();
 
-    let result = await fetch(
-      `https://e-commerce-website-is92.onrender.com/${params.id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ImageUrl, Model, Price, Description }),
-      }
-    );
+    if (
+      !product.ImageUrl ||
+      !product.Model ||
+      !product.Price ||
+      !product.Description
+    ) {
+      alert("All fields are required");
+    } else {
+      if (params.id === "undefined") {
+        alert("Invalid ID");
+        window.location.href = "/products";
+      } else {
+        let result = await fetch(
+          `https://e-commerce-website-is92.onrender.com/${params.id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(product),
+          }
+        );
 
-    result = await result.json();
-    if (result) {
-      alert("product updated successfully");
-      window.location.href = "/products";
+        result = await result.json();
+        if (result) {
+          alert("Product updated successfully");
+          window.location.href = "/products";
+        }
+      }
     }
   }
 
