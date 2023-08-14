@@ -159,7 +159,7 @@ app.put("/updateProduct/:id", async (req, res) => {
       { $set: req.body }
     );
 
-    if (updatedProduct.nModified > 0) {
+    if (updatedProduct) {
       res.status(200).json("Product updated successfully");
     } else {
       res.status(404).json({ error: "Product not found" });
