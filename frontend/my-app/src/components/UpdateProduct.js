@@ -17,7 +17,7 @@ const UpdateProduct = () => {
 
   async function getProduct() {
     let result = await fetch(
-      `https://e-commerce-website-is92.onrender.com/${params.id}`,
+      `https://e-commerce-website-is92.onrender.com/updateProduct/${params.id}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -46,7 +46,7 @@ const UpdateProduct = () => {
         window.location.href = "/products";
       } else {
         let result = await fetch(
-          `https://e-commerce-website-is92.onrender.com/${params.id}`,
+          `https://e-commerce-website-is92.onrender.com/updateProduct/${params.id}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
