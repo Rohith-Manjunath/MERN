@@ -6,6 +6,7 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [btn, setBtn] = useState("Register");
   //   navigate to products page after successful registration and store user details in local storage for authentication purposes
   async function handleClick(e) {
     e.preventDefault();
@@ -13,26 +14,30 @@ const Signup = () => {
     if (!name && !email && !password) {
       alert("All fields are required");
     } else {
-      let result = await fetch(
-        "https://e-commerce-website-is92.onrender.com/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, password }),
-        }
-      );
+      setBtn("Please wait...");
+      setTimeout(async () => {
+        let result = await fetch(
+          "https://e-commerce-website-is92.onrender.com/register",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password }),
+          }
+        );
 
-      result = await result.json();
+        result = await result.json();
 
-      if (result) {
-        if (result.Error) {
-          alert(`Registration failed! ${result.message}`);
-        } else {
-          localStorage.setItem("user", JSON.stringify({ name, email }));
-          localStorage.setItem("token", result.token);
-          window.location.href = "/products";
+        if (result) {
+          if (result.Error) {
+            alert(`Registration failed! ${result.Error}`);
+            window.location.href = "/register";
+          } else {
+            localStorage.setItem("user", JSON.stringify({ name, email }));
+            localStorage.setItem("token", result.token);
+            window.location.href = "/products";
+          }
         }
-      }
+      }, 3000);
     }
   }
 
@@ -58,7 +63,7 @@ const Signup = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button type="submit" onClick={handleClick}>
-        Register
+        {btn}
       </button>
       <p>
         Already a user?? <Link to="/login">Login Here</Link>{" "}
