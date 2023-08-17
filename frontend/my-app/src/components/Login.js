@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -6,7 +5,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-
+  const [btn, setBtn] = useState("Login");
   let Name = JSON.parse(localStorage.getItem("user"));
 
   //   navigate to products page after successful registration and store user details in local storage for authentication purposes
@@ -16,26 +15,31 @@ const Login = () => {
     if (!email && !password) {
       alert("All fields are required");
     } else {
-      let result = await fetch(
-        "https://e-commerce-website-is92.onrender.com/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      setBtn("Please wait...");
 
-      result = await result.json();
+      setTimeout(async () => {
+        let result = await fetch(
+          "https://e-commerce-website-is92.onrender.com/login",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+          }
+        );
 
-      if (result) {
-        if (result.Error) {
-          alert(`Login failed! ${result.Error}`);
-        } else {
-          localStorage.setItem("user", JSON.stringify({ name, email }));
-          localStorage.setItem("token", result.token);
-          window.location.href = "/products";
+        result = await result.json();
+
+        if (result) {
+          if (result.Error) {
+            alert(`Login failed! ${result.Error}`);
+            window.location.href = "/register";
+          } else {
+            localStorage.setItem("user", JSON.stringify({ name, email }));
+            localStorage.setItem("token", result.token);
+            window.location.href = "/products";
+          }
         }
-      }
+      }, 3000);
     }
   }
 
@@ -63,7 +67,7 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button type="submit" onClick={handleClick}>
-        Login
+        {btn}
       </button>
       <p>
         Not a user yet?? <Link to="/register">Register Here</Link>{" "}
