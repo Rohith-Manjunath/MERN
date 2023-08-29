@@ -294,7 +294,7 @@ app.delete("/removeLiked/:id", async (req, res) => {
 
 app.get("/filter1", async (req, res) => {
   try {
-    let filter = await Product.find({ Price: { $gte: 1000, $lte: 10000 } });
+    let filter = await Product.find({ Price: { $gte: 10000, $lte: 20000 } });
     res.json(filter);
   } catch (error) {
     console.error(error);
@@ -304,7 +304,7 @@ app.get("/filter1", async (req, res) => {
 
 app.get("/filter2", async (req, res) => {
   try {
-    let filter = await Product.find({ Price: { $gte: 11000, $lte: 20000 } });
+    let filter = await Product.find({ Price: { $gte: 21000, $lte: 40000 } });
     res.json(filter);
   } catch (error) {
     console.error(error);
@@ -314,17 +314,7 @@ app.get("/filter2", async (req, res) => {
 
 app.get("/filter3", async (req, res) => {
   try {
-    let filter = await Product.find({ Price: { $gte: 21000, $lte: 30000 } });
-    res.json(filter);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-app.get("/filter4", async (req, res) => {
-  try {
-    let filter = await Product.find({ Price: { $gte: 31000, $lte: 40000 } });
+    let filter = await Product.find({ Price: { $gte: 40000 } });
     res.json(filter);
   } catch (error) {
     console.error(error);

@@ -74,7 +74,7 @@ const Products = () => {
   }
 
   async function Filter1() {
-    setFilter("1000RS - 10000RS");
+    setFilter("10000RS - 20000RS");
     let result = await fetch(
       "https://e-commerce-website-is92.onrender.com/filter1",
       {
@@ -88,7 +88,7 @@ const Products = () => {
     setProducts(result);
   }
   async function Filter2() {
-    setFilter("11000RS - 20000RS");
+    setFilter("21000RS - 40000RS");
 
     let result = await fetch(
       "https://e-commerce-website-is92.onrender.com/filter2",
@@ -103,25 +103,10 @@ const Products = () => {
     setProducts(result);
   }
   async function Filter3() {
-    setFilter("21000RS - 30000RS");
+    setFilter(">=40000RS");
 
     let result = await fetch(
       "https://e-commerce-website-is92.onrender.com/filter3",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    result = await result.json();
-    setProducts(result);
-  }
-  async function Filter4() {
-    setFilter("31000RS - 40000RS");
-
-    let result = await fetch(
-      "https://e-commerce-website-is92.onrender.com/filter4",
       {
         method: "GET",
         headers: {
@@ -187,10 +172,9 @@ const Products = () => {
         <h2>Filters</h2>
 
         <div className="filters">
-          <button onClick={Filter1}>1000 RS-10000 RS</button>
-          <button onClick={Filter2}>11000 RS-20000 RS</button>
-          <button onClick={Filter3}>21000 RS-30000 RS</button>
-          <button onClick={Filter4}>31000 RS-40000 RS</button>
+          <button onClick={Filter1}>10000 RS-20000 RS</button>
+          <button onClick={Filter2}>21000 RS-40000 RS</button>
+          <button onClick={Filter3}> 40000+ RS</button>
           <button onClick={getProducts}>All</button>
           <button onClick={getLaptops}>Laptops</button>
           <button onClick={getMobiles}>Mobiles</button>
@@ -234,7 +218,9 @@ const Products = () => {
         ) : (
           <div className="addProductLink">
             <h1>Be first to add product</h1>
-            <Link to="/addProducts">Add product here</Link>
+            <Link to="/addProducts" style={{ color: "white" }}>
+              Add product here
+            </Link>
           </div>
         )}
       </div>
