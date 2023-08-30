@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     getProducts();
@@ -36,13 +37,30 @@ const Cart = () => {
 
       result = await result.json();
       getProducts();
+      window.location.href = "/cart";
     } else {
       window.location.href = "/cart";
     }
   }
 
+  useEffect(() => {
+    totalPrice();
+  }, []);
+
+  const totalPrice = async () => {
+    let result = await fetch(
+      "https://e-commerce-website-is92.onrender.com/cart/totalPrice"
+    );
+
+    result = await result.json();
+
+    setPrice(result.totalPrice);
+  };
+
   return (
     <div className="items-container">
+      <h2>Total : {price} RS</h2>
+
       {products.length > 0 ? (
         products.map((item, i) => (
           <div key={i} className="items">

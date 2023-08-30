@@ -35,6 +35,8 @@ body {
   gap: 1rem;
   list-style-type: none;
   margin: 1rem;
+  background-color: rgb(15, 39, 87);
+
 }
 
 .Navbar ul li a {
@@ -292,7 +294,6 @@ body {
   }
 
   .Navbar {
-    background-color: black;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -308,7 +309,6 @@ body {
     list-style-type: none;
     margin: 1rem;
     flex-direction: row;
-    background-color: rgb(0, 0, 0);
     position: absolute;
     flex-direction: column;
     top: 2rem;
@@ -410,7 +410,6 @@ text-align: center;
   }
 
   .item-details span {
-    background-color: black;
     color: white;
     border-radius: 0.2rem;
     padding: 0.1rem 0.5rem;
@@ -504,7 +503,6 @@ text-align: center;
   }
 
   .Navbar {
-    background-color: black;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -515,7 +513,6 @@ text-align: center;
   .Navbar ul {
     margin: 1rem;
     flex-direction: row;
-    background-color: rgb(0, 0, 0);
     position: absolute;
     flex-direction: column;
     top: 2rem;
@@ -612,7 +609,6 @@ text-align: center;
   }
 
   .item-details span {
-    background-color: black;
     color: white;
     border-radius: 0.2rem;
     padding: 0.1rem 0.5rem;
@@ -705,7 +701,6 @@ text-align: center;
   }
 
   .Navbar {
-    background-color: black;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -716,7 +711,6 @@ text-align: center;
   .Navbar ul {
     margin: 1rem;
     flex-direction: row;
-    background-color: rgb(0, 0, 0);
     position: absolute;
     flex-direction: column;
     top: 2rem;
@@ -813,7 +807,6 @@ text-align: center;
   }
 
   .item-details span {
-    background-color: black;
     color: white;
     border-radius: 0.2rem;
     padding: 0.1rem 0.5rem;
