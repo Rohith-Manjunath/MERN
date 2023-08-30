@@ -382,6 +382,20 @@ process.on("unhandledRejection", (reason, promise) => {
   process.exit(1);
 });
 
+app.get("/cart/totalPrice", async (req, res) => {
+  try {
+    let cart = await Cart.find();
+
+    let totalPrice = cart.reduce((sum, item) => sum + +item.Price, 0);
+
+    res.json({ totalPrice });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while processing the request." });
+  }
+});
+
 if (config) {
   app.listen(process.env.PORT, () => {
     console.log(`Server Started on ${process.env.PORT}`);
