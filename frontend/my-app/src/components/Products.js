@@ -56,7 +56,12 @@ const Products = () => {
 
     result = await result.json();
 
-    window.location.href = "/likedProducts";
+    if (result.message) {
+      alert("This Product is already in your LikedList");
+      window.location.href = "/Products";
+    } else {
+      window.location.href = "/likedProducts";
+    }
   }
 
   async function Cart(id) {
@@ -70,7 +75,12 @@ const Products = () => {
 
     result = await result.json();
 
-    window.location.href = "/cart";
+    if (result.message) {
+      alert("This Product is already in your cart");
+      window.location.href = "/Products";
+    } else {
+      window.location.href = "/cart";
+    }
   }
 
   async function Filter1() {

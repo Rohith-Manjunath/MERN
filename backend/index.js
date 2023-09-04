@@ -200,7 +200,7 @@ app.post("/liked/:id", async (req, res) => {
     let isThere = await Liked.findOne({ Model: product.Model });
 
     if (isThere) {
-      res.json("Product already exists in likedList");
+      res.json({ message: "Product already exists in likedList" });
     } else {
       if (product) {
         let liked = await Liked.create({
@@ -259,7 +259,7 @@ app.post("/cart/:id", async (req, res) => {
     let isThere = await Cart.findOne({ Model: product.Model });
 
     if (isThere) {
-      res.json("Product already exists in your cart");
+      res.json({ message: "Product already exists in your cart" });
     } else {
       if (product) {
         let liked = await Cart.create({
