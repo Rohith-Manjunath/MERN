@@ -15,36 +15,40 @@ app.use(express.json());
 const bcrypt = require("bcrypt");
 
 app.get("/", (req, res) => {
-  res.json("Home");
+  res.status(200).json("Home");
 });
 
-app.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+if (config) {
+  app.post("/register", async (req, res) => {
+    const { name, email, password } = req.body;
 
-  try {
-    let find = await User.findOne({ email: email });
+    try {
+      let find = await User.findOne({ email: email });
 
-    if (find) {
-      return res.status(400).json({ Error: "User already exists" });
+      if (find) {
+        return res.status(400).json({ Error: "User already exists" });
+      }
+
+      const hashedPassword = await hashPassword(password);
+
+      let user = await User.create({
+        name: name,
+        email: email,
+        password: hashedPassword,
+      });
+
+      let newUser = user.toObject();
+      const token = generateToken(newUser);
+
+      res.json({ message: "Register Successful", token: token });
+    } catch (e) {
+      console.error(e);
+      return res.sendStatus(500);
     }
-
-    const hashedPassword = await hashPassword(password);
-
-    let user = await User.create({
-      name: name,
-      email: email,
-      password: hashedPassword,
-    });
-
-    let newUser = user.toObject();
-    const token = generateToken(newUser);
-
-    res.json({ message: "Register Successful", token: token });
-  } catch (e) {
-    console.error(e);
-    return res.sendStatus(500);
-  }
-});
+  });
+} else {
+  res.status(200).json("Error registering try again");
+}
 
 // Function to hash a password
 async function hashPassword(password) {
@@ -63,30 +67,34 @@ function generateToken(user) {
   return token;
 }
 
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+if (config) {
+  app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
 
-  try {
-    let user = await User.findOne({ email: email });
+    try {
+      let user = await User.findOne({ email: email });
 
-    if (!user) {
-      return res.status(401).json({ Error: "No user exists" });
+      if (!user) {
+        return res.status(401).json({ Error: "No user exists" });
+      }
+
+      const isMatch = await comparePasswords(password, user.password);
+
+      if (!isMatch) {
+        return res.status(401).json({ Error: "Invalid password" });
+      }
+
+      const token = generateToken(user.toObject());
+
+      res.status(200).json({ message: "Login successful", token });
+    } catch (e) {
+      console.error(e);
+      return res.sendStatus(500);
     }
-
-    const isMatch = await comparePasswords(password, user.password);
-
-    if (!isMatch) {
-      return res.status(401).json({ Error: "Invalid password" });
-    }
-
-    const token = generateToken(user.toObject());
-
-    res.status(200).json({ message: "Login successful", token });
-  } catch (e) {
-    console.error(e);
-    return res.sendStatus(500);
-  }
-});
+  });
+} else {
+  res.status(200).json("Error Loggin in try again");
+}
 
 // Function to compare a password against a hash
 async function comparePasswords(password, hash) {
@@ -189,18 +197,23 @@ app.delete("/product/:id", async (req, res) => {
 app.post("/liked/:id", async (req, res) => {
   try {
     let product = await Product.findOne({ _id: req.params.id });
+    let isThere = await Liked.findOne({ Model: product.Model });
 
-    if (product) {
-      let liked = await Liked.create({
-        ImageUrl: product.ImageUrl,
-        Model: product.Model,
-        Price: product.Price,
-        Description: product.Description,
-      });
-
-      res.status(200).json(liked);
+    if (isThere) {
+      res.json("Product already exists in likedList");
     } else {
-      res.status(404).json({ error: "Product not found" });
+      if (product) {
+        let liked = await Liked.create({
+          ImageUrl: product.ImageUrl,
+          Model: product.Model,
+          Price: product.Price,
+          Description: product.Description,
+        });
+
+        res.status(200).json(liked);
+      } else {
+        res.status(404).json({ error: "Product not found" });
+      }
     }
   } catch (error) {
     console.error(error);
@@ -243,18 +256,23 @@ app.get("/cart", async (req, res) => {
 app.post("/cart/:id", async (req, res) => {
   try {
     let product = await Product.findOne({ _id: req.params.id });
+    let isThere = await Cart.findOne({ Model: product.Model });
 
-    if (product) {
-      let liked = await Cart.create({
-        ImageUrl: product.ImageUrl,
-        Model: product.Model,
-        Price: product.Price,
-        Description: product.Description,
-      });
-
-      res.status(200).json(liked);
+    if (isThere) {
+      res.json("Product already exists in your cart");
     } else {
-      res.status(404).json({ error: "Product not found" });
+      if (product) {
+        let liked = await Cart.create({
+          ImageUrl: product.ImageUrl,
+          Model: product.Model,
+          Price: product.Price,
+          Description: product.Description,
+        });
+
+        res.status(200).json(liked);
+      } else {
+        res.status(404).json({ error: "Product not found" });
+      }
     }
   } catch (error) {
     console.error(error);
