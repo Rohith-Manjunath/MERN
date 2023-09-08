@@ -1,5 +1,7 @@
 # E-Commerce Website 
-![sample website image](image.png)
+![sample website image1](image1.png)
+![sample website image2](image2.png)
+![sample website image3](image3.png)
 
 
 
