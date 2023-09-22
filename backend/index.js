@@ -414,6 +414,28 @@ app.get("/cart/totalPrice", async (req, res) => {
   }
 });
 
+app.put("/forgotPassword", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email: email });
+
+    if (user) {
+      const { password } = req.body;
+
+      user.password = await bcrypt.hash(password, 10);
+
+      await user.save();
+
+      return res.json({ message: "Password updated successfully" });
+    } else {
+      return res.status(404).json({ error: "User not found." });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 if (config) {
   app.listen(process.env.PORT, () => {
     console.log(`Server Started on ${process.env.PORT}`);
