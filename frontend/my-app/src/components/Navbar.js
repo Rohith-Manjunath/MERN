@@ -68,6 +68,9 @@ const Navbar = () => {
             <li>
               <NavLink to="register">Register</NavLink>
             </li>
+            <li>
+              <NavLink to="forgot">Forgot Password</NavLink>
+            </li>
           </>
         )}
       </ul>

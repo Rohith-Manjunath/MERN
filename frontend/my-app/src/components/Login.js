@@ -70,7 +70,10 @@ const Login = () => {
         {btn}
       </button>
       <p>
-        Not a user yet?? <Link to="/register">Register Here</Link>{" "}
+        Not a user yet?? <Link to="/register">Register Here</Link>
+      </p>
+      <p>
+        Forgot Password? <Link to="/forgot">ForgotPassword</Link>
       </p>
     </div>
   );
