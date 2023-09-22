@@ -1,8 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-const ForgotPassword = (e) => {
-  e.preventDefault();
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
