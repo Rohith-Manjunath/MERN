@@ -36,7 +36,9 @@
 
     "mongodb": "^5.7.0",
 
-    "mongoose": "^7.4.1"
+    "mongoose": "^7.4.1",
+
+    "stripe": "^14.1.0"
 
   }
 
