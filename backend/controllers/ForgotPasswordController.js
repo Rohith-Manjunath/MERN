@@ -1,4 +1,5 @@
 const User = require("../db/Schems");
+const bcrypt = require("bcrypt");
 
 const ForgotPassword = async (req, res) => {
   const { email } = req.body;
