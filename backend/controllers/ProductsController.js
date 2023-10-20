@@ -1,4 +1,5 @@
 const Product = require("../db/ProductsSchema");
+const jwt = require("jsonwebtoken");
 
 const GetAllProducts = async (req, res) => {
   try {
