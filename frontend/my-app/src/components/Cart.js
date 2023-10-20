@@ -60,7 +60,7 @@ const Cart = () => {
   const handlePayment = async () => {
     try {
       const res = await fetch(
-        "https://e-commerce-website-is92.onrender.com/auth/checkout",
+        "https://e-commerce-website-is92.onrender.com/checkout",
         {
           method: "POST",
           headers: {
