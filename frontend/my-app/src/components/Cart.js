@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
@@ -8,53 +7,79 @@ const Cart = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+    totalPrice();
+  }, []); // Run getProducts and totalPrice on component mount
 
   async function getProducts() {
     try {
-      fetch("https://e-commerce-website-is92.onrender.com/cart", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((result) => result.json())
-        .then((data) => setProducts(data));
-    } catch (e) {
-      console.log(e.message);
+      const response = await fetch(
+        "https://e-commerce-website-is92.onrender.com/cart",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error(error.message);
     }
   }
 
   async function RemoveItem(id) {
-    if (window.confirm("Are you sure you wanna delete this item??")) {
-      let result = await fetch(
-        `https://e-commerce-website-is92.onrender.com/removeCart/${id}`,
-        {
-          method: "Delete",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      result = await result.json();
-      getProducts();
-      window.location.href = "/cart";
-    } else {
-      window.location.href = "/cart";
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      try {
+        await fetch(
+          `https://e-commerce-website-is92.onrender.com/removeCart/${id}`,
+          {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        getProducts();
+      } catch (error) {
+        console.error(error.message);
+      }
     }
   }
 
-  useEffect(() => {
-    totalPrice();
-  }, []);
+  async function totalPrice() {
+    try {
+      const response = await fetch(
+        "https://e-commerce-website-is92.onrender.com/cart/totalPrice"
+      );
+      const data = await response.json();
+      setPrice(data.totalPrice);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
-  const totalPrice = async () => {
-    let result = await fetch(
-      "https://e-commerce-website-is92.onrender.com/cart/totalPrice"
-    );
+  const handlePayment = async () => {
+    try {
+      const res = await fetch("http://localhost:2000/auth/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: JSON.stringify({
+          items: products.map((item) => ({
+            id: item._id,
+            quantity: 1, // You might need to adjust the quantity based on your logic
+            price: item.Price,
+            name: item.Model,
+          })),
+        }),
+      });
 
-    result = await result.json();
-
-    setPrice(result.totalPrice);
+      const data = await res.json();
+      window.location = data.url;
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
@@ -84,6 +109,12 @@ const Cart = () => {
         ))
       ) : (
         <h1>Cart is empty</h1>
+      )}
+
+      {products.length > 0 && (
+        <button className="payment-button" onClick={() => handlePayment()}>
+          Pay Now
+        </button>
       )}
     </div>
   );

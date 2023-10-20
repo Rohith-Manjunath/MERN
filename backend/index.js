@@ -14,6 +14,7 @@ const CartRoute = require("./routes/CartRoute");
 const FilterRoute = require("./routes/FilterRoutes");
 const SearchRoute = require("./routes/SearchRoute");
 const ForgotPasswordRoute = require("./routes/ForgotPasswordRoute");
+const PaymentRouter = require("./routes/Payment");
 
 app.use("/", LoginRoute);
 app.use("/", SignUpRoute);
@@ -23,6 +24,7 @@ app.use("/", CartRoute);
 app.use("/", FilterRoute);
 app.use("/", ForgotPasswordRoute);
 app.use("/", SearchRoute);
+app.use("/auth", PaymentRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json("Home");
