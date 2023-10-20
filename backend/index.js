@@ -1,10 +1,15 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const cors = require("cors");
 const config = require("./db/config");
-
-app.use(cors());
+const cors = require("cors");
+const corsOptions = {
+  origin: "https://e-commerce-website-is92.onrender.com", // Replace with your frontend domain
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 const LoginRoute = require("./routes/LoginRoute");
 const SignUpRoute = require("./routes/SignUpRoute");

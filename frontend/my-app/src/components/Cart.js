@@ -56,7 +56,6 @@ const Cart = () => {
       console.error(error.message);
     }
   }
-
   const handlePayment = async () => {
     try {
       const res = await fetch(
@@ -79,9 +78,12 @@ const Cart = () => {
       );
 
       const data = await res.json();
-      window.location = data.url;
+      console.log(data.url);
+      // Handle the payment response here, for example, redirecting the user to the payment URL
+      window.location.href = data.url;
     } catch (error) {
       console.error(error.message);
+      // Handle error, show error message to the user, etc.
     }
   };
 
