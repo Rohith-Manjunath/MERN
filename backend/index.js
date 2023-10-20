@@ -24,7 +24,7 @@ app.use("/", CartRoute);
 app.use("/", FilterRoute);
 app.use("/", ForgotPasswordRoute);
 app.use("/", SearchRoute);
-app.use("/auth", PaymentRouter);
+app.use("/", PaymentRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json("Home");
