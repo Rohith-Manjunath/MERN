@@ -58,21 +58,24 @@ const Cart = () => {
   }
   const handlePayment = async () => {
     try {
-      const res = await fetch("http://localhost:2000/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        body: JSON.stringify({
-          items: products.map((item) => ({
-            id: item._id,
-            quantity: 1, // You might need to adjust the quantity based on your logic
-            price: item.Price,
-            name: item.Model,
-          })),
-        }),
-      });
+      const res = await fetch(
+        "https://payment-mxqy.onrender.com/auth/checkout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          mode: "cors",
+          body: JSON.stringify({
+            items: products.map((item) => ({
+              id: item._id,
+              quantity: 1, // You might need to adjust the quantity based on your logic
+              price: item.Price,
+              name: item.Model,
+            })),
+          }),
+        }
+      );
 
       const data = await res.json();
       console.log(data.url);
