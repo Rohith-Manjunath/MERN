@@ -894,3 +894,20 @@ text-align: center;
   
 
 }
+
+.success-message {
+  background-color: #4caf50; /* Green background color */
+  color: white; /* White text color */
+  padding: 20px; /* Padding around the message */
+  text-align: center; /* Center align the text */
+  font-size: 24px; /* Font size of the text */
+  border-radius: 5px; /* Optional: Rounded corners for the message */
+  max-width: 20rem;
+  margin: 10rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.success-message a{
+  color: white;
+}

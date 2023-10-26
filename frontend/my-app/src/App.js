@@ -10,6 +10,7 @@ import UpdateProduct from "./components/UpdateProduct";
 import LikedProducts from "./components/LikedProducts";
 import Cart from "./components/Cart";
 import ForgotPassword from "./components/ForgotPassword";
+import Success from "./components/Success";
 
 function App() {
   let auth = localStorage.getItem("token");
@@ -39,6 +40,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<SignUp />}></Route>
           <Route path="/forgot" element={<ForgotPassword />}></Route>
+          <Route path="/success" element={<Success />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
