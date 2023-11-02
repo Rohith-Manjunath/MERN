@@ -27,6 +27,10 @@ const Navbar = () => {
     setBool(!bool);
   }
 
+  const HideHamburgerMenu = () => {
+    setBool(true);
+  };
+
   return (
     <div className="Navbar">
       <ul
@@ -38,21 +42,25 @@ const Navbar = () => {
         {auth ? (
           <>
             <li>
-              <NavLink to="/products">Products</NavLink>
-            </li>
-            <li>
-              <NavLink to="/addProducts">Add Products</NavLink>
-            </li>
-            <li>
-              <NavLink to={`/updateProduct/${params.id}`}>
-                Update Products
+              <NavLink to="/products" onClick={HideHamburgerMenu}>
+                Products
               </NavLink>
             </li>
             <li>
-              <NavLink to="/likedProducts">Liked Products</NavLink>
+              <NavLink to="/addProducts" onClick={HideHamburgerMenu}>
+                Add Products
+              </NavLink>
+            </li>
+            <li></li>
+            <li>
+              <NavLink to="/likedProducts" onClick={HideHamburgerMenu}>
+                Liked Products
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/cart">Cart</NavLink>
+              <NavLink to="/cart" onClick={HideHamburgerMenu}>
+                Cart
+              </NavLink>
             </li>
             <li>
               <NavLink to="register" onClick={clearLocalStorage}>

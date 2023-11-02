@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Products = () => {
   // Use array destructuring to get the products state and the setProducts function
@@ -26,19 +28,28 @@ const Products = () => {
       console.log(e.message);
     }
   }
-  async function DeleteProduct(id) {
-    if (window.confirm("are you sure you wanna delete this product?")) {
-      let result = await fetch(
-        `https://e-commerce-website-is92.onrender.com/product/${id}`,
-        {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
 
-      result = await result.json();
-      if (result) {
-        getProducts();
+  async function DeleteProduct(id) {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        let result = await fetch(
+          `https://e-commerce-website-is92.onrender.com/product/${id}`,
+          {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        result = await result.json();
+        if (result) {
+          getProducts();
+          toast.success("Product deleted successfully!");
+        } else {
+          toast.error("Failed to delete product.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        toast.error("An error occurred while deleting the product.");
       }
     } else {
       window.location.href = "/products";
@@ -46,40 +57,54 @@ const Products = () => {
   }
 
   async function Like(id) {
-    let result = await fetch(
-      `https://e-commerce-website-is92.onrender.com/liked/${id}`,
-      {
-        method: "POST",
-        headers: { "content-type": "application/json" },
+    try {
+      let result = await fetch(
+        `https://e-commerce-website-is92.onrender.com/liked/${id}`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+        }
+      );
+
+      result = await result.json();
+
+      if (result.message) {
+        toast.warn("This Product is already in your LikedList");
+      } else {
+        toast.success("Product added successfully");
+        setTimeout(() => {
+          window.location.href = "/likedProducts";
+        }, 4000);
       }
-    );
-
-    result = await result.json();
-
-    if (result.message) {
-      alert("This Product is already in your LikedList");
-      window.location.href = "/Products";
-    } else {
-      window.location.href = "/likedProducts";
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred while processing your request.");
     }
   }
 
   async function Cart(id) {
-    let result = await fetch(
-      `https://e-commerce-website-is92.onrender.com/cart/${id}`,
-      {
-        method: "POST",
-        headers: { "content-type": "application/json" },
+    try {
+      let result = await fetch(
+        `https://e-commerce-website-is92.onrender.com/cart/${id}`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+        }
+      );
+
+      result = await result.json();
+
+      if (result.message) {
+        toast.warn("This Product is already in your cart");
+      } else {
+        toast.success("Product added successfully");
+        setTimeout(() => {
+          window.location.href = "/cart";
+        }, 4000);
       }
-    );
-
-    result = await result.json();
-
-    if (result.message) {
-      alert("This Product is already in your cart");
-      window.location.href = "/Products";
-    } else {
-      window.location.href = "/cart";
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred while processing your request.");
     }
   }
 
@@ -234,6 +259,7 @@ const Products = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

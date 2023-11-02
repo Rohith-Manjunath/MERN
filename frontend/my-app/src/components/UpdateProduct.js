@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UpdateProduct = () => {
   const [product, setProduct] = useState({
@@ -39,33 +41,47 @@ const UpdateProduct = () => {
       !product.Price ||
       !product.Description
     ) {
-      alert("All fields are required");
-    } else {
-      if (params.id === "undefined") {
-        alert("Invalid ID");
-        window.location.href = "/products";
-      } else {
-        let result = await fetch(
-          `https://e-commerce-website-is92.onrender.com/updateProduct/${params.id}`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(product),
-          }
-        );
+      toast.error("All fields are required");
+      return;
+    }
 
-        result = await result.json();
-        if (result) {
-          alert("Product updated successfully");
-          window.location.href = "/products";
+    if (params.id === "undefined") {
+      toast.error("Invalid ID");
+      window.location.href = "/products";
+      return;
+    }
+
+    try {
+      let result = await fetch(
+        `https://e-commerce-website-is92.onrender.com/updateProduct/${params.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(product),
         }
+      );
+
+      result = await result.json();
+
+      if (result) {
+        toast.success("Product Updated Successfully");
+        setTimeout(() => {
+          window.location.href = "/products";
+        }, 4000);
+      } else {
+        throw new Error("Failed to update product.");
       }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Failed to update product. Please try again later.");
     }
   }
 
   return (
     <div>
-      <div className="signup-container">
+      <ToastContainer />
+
+      <form className="signup-container" onSubmit={Update}>
         <h1>Update Product</h1>
 
         <input
@@ -98,10 +114,8 @@ const UpdateProduct = () => {
             setProduct({ ...product, Description: e.target.value })
           }
         />
-        <button type="submit" onClick={Update}>
-          Update
-        </button>
-      </div>
+        <button type="submit">Update</button>
+      </form>
     </div>
   );
 };
