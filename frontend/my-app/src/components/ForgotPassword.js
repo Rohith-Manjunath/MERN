@@ -1,34 +1,47 @@
 import React from "react";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const updatepassword = async (e) => {
+    e.preventDefault();
+    try {
+      let response = await fetch(
+        "https://e-commerce-website-is92.onrender.com/forgotPassword",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
-  const updatepassword = async () => {
-    let user = await fetch(
-      "https://e-commerce-website-is92.onrender.com/forgotPassword",
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      if (response.ok) {
+        let user = await response.json();
+        if (user) {
+          toast.success(user.message);
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 4000);
+        } else {
+          toast.error("Invalid response from server");
+        }
+      } else {
+        toast.error(
+          "Error updating password / User doesn't exists. Please try again later."
+        );
       }
-    );
-
-    user = await user.json();
-
-    if (user) {
-      alert(user.message);
-      window.location.href = "/login";
-    } else {
-      alert("Please enter a valid Email address");
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.");
     }
   };
 
   return (
-    <div className="signup-container">
+    <form className="signup-container" onSubmit={updatepassword}>
       <input
         type="text"
         placeholder="Enter Your email"
@@ -39,10 +52,9 @@ const ForgotPassword = () => {
         placeholder="Enter New Password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={updatepassword} style={{ width: "60%" }}>
-        Update Password
-      </button>
-    </div>
+      <button style={{ width: "60%" }}>Update Password</button>
+      <ToastContainer />
+    </form>
   );
 };
 

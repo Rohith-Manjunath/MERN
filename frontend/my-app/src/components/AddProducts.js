@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProducts = () => {
   const [ImageUrl, setImgurl] = useState("");
@@ -8,11 +10,14 @@ const AddProducts = () => {
   const [Category, setCategory] = useState("");
 
   async function addProducts(e) {
-    if (Category !== "Mobile" && Category !== "Laptop") {
-      alert("Category type should be Mobile/Laptop");
-    } else {
-      e.preventDefault();
+    e.preventDefault();
 
+    if (Category !== "Mobile" && Category !== "Laptop") {
+      toast.error("Category type should be Mobile/Laptop");
+      return;
+    }
+
+    try {
       let result = await fetch(
         "https://e-commerce-website-is92.onrender.com/products",
         {
@@ -31,17 +36,28 @@ const AddProducts = () => {
         }
       );
 
-      result = await result.json();
-      window.location.href = "/products";
+      if (result.ok) {
+        toast.success("Product added successfully!");
+
+        setTimeout(() => {
+          window.location.href = "/products";
+        }, 4000);
+      } else {
+        throw new Error("Failed to add product.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Failed to add product. Please try again later.");
     }
   }
 
   return (
-    <div className="signup-container">
+    <form className="signup-container" onSubmit={addProducts}>
+      <ToastContainer />
       <h1>Add Product</h1>
 
       <input
-        type="email"
+        type="text"
         placeholder="Enter image url"
         required
         onChange={(e) => setImgurl(e.target.value)}
@@ -70,10 +86,8 @@ const AddProducts = () => {
         required
         onChange={(e) => setCategory(e.target.value)}
       />
-      <button type="submit" onClick={addProducts}>
-        Add
-      </button>
-    </div>
+      <button type="submit">Add</button>
+    </form>
   );
 };
 

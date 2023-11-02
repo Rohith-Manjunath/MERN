@@ -20,7 +20,7 @@ const Filter2 = async (req, res) => {
 };
 const Filter3 = async (req, res) => {
   try {
-    let filter = await Product.find({ Price: { $gte: 21000, $lte: 40000 } });
+    let filter = await Product.find({ Price: { $gt: 40000 } });
     res.json(filter);
   } catch (error) {
     console.error(error);

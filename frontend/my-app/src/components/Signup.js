@@ -1,21 +1,22 @@
-import React from "react";
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [btn, setBtn] = useState("Register");
-  //   navigate to products page after successful registration and store user details in local storage for authentication purposes
+
   async function handleClick(e) {
     e.preventDefault();
 
-    if (!name && !email && !password) {
-      alert("All fields are required");
+    if (!name || !email || !password) {
+      toast.error("All fields are required");
     } else {
       setBtn("Please wait...");
-      setTimeout(async () => {
+      try {
         let result = await fetch(
           "https://e-commerce-website-is92.onrender.com/register",
           {
@@ -29,20 +30,29 @@ const Signup = () => {
 
         if (result) {
           if (result.Error) {
-            alert(`Registration failed! ${result.Error}`);
-            window.location.href = "/register";
+            toast.error(`Registration failed! ${result.Error}`);
+            setBtn("Register");
           } else {
             localStorage.setItem("user", JSON.stringify({ name, email }));
             localStorage.setItem("token", result.token);
-            window.location.href = "/products";
+            toast.success("Registration successful!");
+
+            // Wait for 2 seconds before redirecting
+            setTimeout(() => {
+              window.location.href = "/products";
+            }, 5000);
           }
         }
-      }, 3000);
+      } catch (error) {
+        console.error("Error:", error);
+        toast.error("An error occurred during registration.");
+        setBtn("Register");
+      }
     }
   }
 
   return (
-    <div className="signup-container">
+    <form className="signup-container" onSubmit={handleClick}>
       <h1>Register</h1>
       <input
         type="text"
@@ -62,13 +72,13 @@ const Signup = () => {
         required
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit" onClick={handleClick}>
-        {btn}
-      </button>
+      <button type="submit">{btn}</button>
       <p>
         Already a user?? <Link to="/login">Login Here</Link>{" "}
       </p>
-    </div>
+
+      <ToastContainer />
+    </form>
   );
 };
 
