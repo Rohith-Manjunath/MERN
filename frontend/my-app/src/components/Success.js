@@ -4,10 +4,18 @@ import { Link } from "react-router-dom";
 
 const Success = () => {
   return (
-    <div className="success-message">
-      Payment Success
-      <Link to="/">Back to home</Link>
-    </div> // Apply the CSS class to the component
+    <div className="success-container">
+      <div className="success-message">
+        <h1>Payment Successful</h1>
+        <p>
+          Thank you for your purchase! Your payment was successful. Your order
+          will be processed shortly.
+        </p>
+        <Link to="/" className="back-to-home-link">
+          Back to Home
+        </Link>
+      </div>
+    </div>
   );
 };
 

@@ -1,8 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import LoadingSpinner from "./LoadingSpinner";
 
 const LikedProducts = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Manage loading state
 
   useEffect(() => {
     getProducts();
@@ -17,7 +19,10 @@ const LikedProducts = () => {
         },
       })
         .then((result) => result.json())
-        .then((data) => setProducts(data));
+        .then((data) => {
+          setIsLoading(false);
+          setProducts(data);
+        });
     } catch (e) {
       console.log(e.message);
     }
@@ -42,7 +47,9 @@ const LikedProducts = () => {
 
   return (
     <div className="items-container">
-      {products.length > 0 ? (
+      {isLoading ? (
+        <LoadingSpinner isLoading={isLoading} />
+      ) : products.length > 0 ? (
         products.map((item, i) => (
           <div key={i} className="items">
             <div className="img-container">

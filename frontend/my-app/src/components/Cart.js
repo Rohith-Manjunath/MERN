@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
   const [price, setPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); // Manage loading state
 
   useEffect(() => {
     getProducts();
@@ -23,6 +25,7 @@ const Cart = () => {
       );
       const data = await response.json();
       setProducts(data);
+      setIsLoading(false);
     } catch (error) {
       console.error(error.message);
     }
@@ -39,6 +42,7 @@ const Cart = () => {
           }
         );
         getProducts();
+        totalPrice();
       } catch (error) {
         console.error(error.message);
       }
@@ -89,9 +93,16 @@ const Cart = () => {
 
   return (
     <div className="items-container">
-      <h2>Total : {price} RS</h2>
+      <h2>
+        Total : {price} RS
+        <p style={{ backgroundColor: "red", color: "white" }}>
+          Total Items - {products.length}
+        </p>
+      </h2>
 
-      {products.length > 0 ? (
+      {isLoading ? (
+        <LoadingSpinner isLoading={isLoading} />
+      ) : products.length > 0 ? (
         products.map((item, i) => (
           <div key={i} className="items">
             <div className="img-container">
