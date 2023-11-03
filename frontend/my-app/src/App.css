@@ -25,6 +25,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left:0;
+  width: 100%;
+  z-index: 100;
+  padding:2rem;
 }
 
 
@@ -62,7 +68,7 @@ body {
   text-align: center;
 }
 
-.ham {
+.hamburger-icon{
   display: none;
 }
 
@@ -87,6 +93,7 @@ body {
   height: 30rem;
   border-radius: 1rem;
   border: 2px solid cyan;
+  margin: 6rem auto;
 }
 
 .signup-container input {
@@ -133,6 +140,23 @@ body {
 .signup-container button:active {
   box-shadow: none;
   transform: translate(2px, 2px);
+}
+
+.signup-container .password-container{
+  width: 90%;
+  display: flex;
+gap: 1rem;
+align-items: center;
+justify-content: center;
+}
+
+.eye-icon{
+  font-size: 1.2rem;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+.eye-icon:active{
+transform: translate(2px,2px);
 }
 
 .items-container {
@@ -239,6 +263,7 @@ body {
 
 .filter-container {
   margin: 0.5rem;
+  margin-top: 5rem;
 }
 
 .filters {
@@ -265,10 +290,16 @@ text-align: center;
   font-weight: 900;
   height: 70%;
   transition: all 0.4s;
+  box-shadow: 2px 2px 2px 0px white;
+-webkit-box-shadow: 2px 2px 2px 0px white;
+-moz-box-shadow: 2px 2px 2px 0px white;
 }
 
 .filters button:focus{
-  background-color: rgb(7, 85, 255);
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+  background-color: rgb(34, 115, 255);;
 }
 
 .filters button:hover {
@@ -305,6 +336,7 @@ text-align: center;
     align-items: center;
     justify-content: space-between;
     position: relative;
+    
   }
 
   .Navbar ul {
@@ -373,6 +405,10 @@ text-align: center;
   .nav-right h2 {
     color: white;
     margin-bottom: 1.2rem;
+  }
+
+  .hamburger-icon{
+    display: block;
   }
 
   .signup-container {
@@ -533,6 +569,7 @@ text-align: center;
   .hamburger-icon{
     margin: 1rem 0 0 1rem;
     font-size: 1.5rem;
+    display: block;
   }
 
   .Navbar h2 {
@@ -748,6 +785,7 @@ text-align: center;
   .hamburger-icon{
     margin: 1rem 0 0 1rem;
     font-size: 1.5rem;
+    display: block;
   }
 
   .Navbar h2 {
