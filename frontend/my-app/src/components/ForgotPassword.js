@@ -2,10 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PiEyeClosedBold, PiEyeBold } from "react-icons/pi";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isPasswordVisible, setPasswordVisibility] = useState(false);
+
   const updatepassword = async (e) => {
     e.preventDefault();
     try {
@@ -40,6 +43,10 @@ const ForgotPassword = () => {
     }
   };
 
+  const TogglePassword = () => {
+    setPasswordVisibility(!isPasswordVisible);
+  };
+
   return (
     <form className="signup-container" onSubmit={updatepassword}>
       <input
@@ -47,11 +54,19 @@ const ForgotPassword = () => {
         placeholder="Enter Your email"
         onChange={(e) => setEmail(e.target.value)}
       />
-      <input
-        type="text"
-        placeholder="Enter New Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <div className="password-container">
+        <input
+          type={isPasswordVisible ? "text" : "password"}
+          placeholder="Enter password"
+          required
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {isPasswordVisible ? (
+          <PiEyeBold className="eye-icon" onClick={TogglePassword} />
+        ) : (
+          <PiEyeClosedBold className="eye-icon" onClick={TogglePassword} />
+        )}
+      </div>
       <button style={{ width: "60%" }}>Update Password</button>
       <ToastContainer />
     </form>

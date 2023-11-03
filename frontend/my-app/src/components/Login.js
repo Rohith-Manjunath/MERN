@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PiEyeClosedBold, PiEyeBold } from "react-icons/pi";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [btn, setBtn] = useState("Login");
+  const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
   async function handleClick(e) {
     e.preventDefault();
@@ -48,6 +50,10 @@ const Login = () => {
     }
   }
 
+  const TogglePassword = () => {
+    setPasswordVisibility(!isPasswordVisible);
+  };
+
   return (
     <form className="signup-container" onSubmit={handleClick}>
       <h1>Login</h1>
@@ -65,12 +71,19 @@ const Login = () => {
         required
         onChange={(e) => setEmail(e.target.value)}
       />
-      <input
-        type="text"
-        placeholder="Enter password"
-        required
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <div className="password-container">
+        <input
+          type={isPasswordVisible ? "text" : "password"}
+          placeholder="Enter password"
+          required
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {isPasswordVisible ? (
+          <PiEyeBold className="eye-icon" onClick={TogglePassword} />
+        ) : (
+          <PiEyeClosedBold className="eye-icon" onClick={TogglePassword} />
+        )}
+      </div>
       <button type="submit">{btn}</button>
       <p>
         Not a user yet?? <Link to="/register">Register Here</Link>

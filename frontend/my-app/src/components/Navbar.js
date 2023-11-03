@@ -51,7 +51,6 @@ const Navbar = () => {
                 Add Products
               </NavLink>
             </li>
-            <li></li>
             <li>
               <NavLink to="/likedProducts" onClick={HideHamburgerMenu}>
                 Liked Products
@@ -96,7 +95,7 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faBars} className="hamburger-icon" />
             </li>
             <li>
-              <h2>Hey 👋 {name.name}</h2>
+              <h2>Hey 👋 {name.name.toUpperCase()}</h2>
             </li>
           </>
         ) : (
