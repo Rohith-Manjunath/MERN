@@ -82,7 +82,7 @@ const DeleteProduct = async (req, res) => {
 
 const Laptops = async (req, res) => {
   try {
-    let laptops = await Product.find({ Category: "Laptop" });
+    let laptops = await Product.find({ Category: "LAPTOP" });
     res.json(laptops);
   } catch (error) {
     console.error(error);
@@ -92,7 +92,7 @@ const Laptops = async (req, res) => {
 
 const Mobiles = async (req, res) => {
   try {
-    let mobiles = await Product.find({ Category: "Mobile" });
+    let mobiles = await Product.find({ Category: "MOBILE" });
     res.json(mobiles);
   } catch (error) {
     console.error(error);

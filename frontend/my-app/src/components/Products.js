@@ -3,11 +3,12 @@ import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Products = () => {
-  // Use array destructuring to get the products state and the setProducts function
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState("");
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     getProducts();
@@ -16,16 +17,22 @@ const Products = () => {
   async function getProducts() {
     setFilter("All Products");
     try {
-      fetch("https://e-commerce-website-is92.onrender.com/products", {
-        method: "GET",
-        headers: {
-          authorization: `bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((result) => result.json())
-        .then((data) => setProducts(data));
-    } catch (e) {
-      console.log(e.message);
+      const response = await fetch(
+        "https://e-commerce-website-is92.onrender.com/products",
+        {
+          method: "GET",
+          headers: {
+            authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred while fetching products.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -223,7 +230,9 @@ const Products = () => {
       </div>
 
       <div className="items-container">
-        {products.length > 0 ? (
+        {isLoading ? (
+          <LoadingSpinner isLoading={isLoading} />
+        ) : products.length > 0 ? (
           products.map((item, i) => {
             return (
               <div key={i} className="items">
@@ -252,9 +261,9 @@ const Products = () => {
           })
         ) : (
           <div className="addProductLink">
-            <h1>Be first to add product</h1>
+            <h1>Be the first to add a product</h1>
             <Link to="/addProducts" style={{ color: "white" }}>
-              Add product here
+              Add a product here
             </Link>
           </div>
         )}

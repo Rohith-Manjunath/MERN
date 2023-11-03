@@ -12,7 +12,12 @@ const AddProducts = () => {
   async function addProducts(e) {
     e.preventDefault();
 
-    if (Category !== "Mobile" && Category !== "Laptop") {
+    const category = Category.toUpperCase();
+
+    if (
+      category.toUpperCase() !== "MOBILE" &&
+      category.toUpperCase() !== "LAPTOP"
+    ) {
       toast.error("Category type should be Mobile/Laptop");
       return;
     }
@@ -31,7 +36,7 @@ const AddProducts = () => {
             Model,
             Price,
             Description,
-            Category,
+            Category: category,
           }),
         }
       );
