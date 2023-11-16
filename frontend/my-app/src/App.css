@@ -85,7 +85,7 @@ body {
 
 .nav-right h2 {
   color: white;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem !important;
 }
 
 .signup-container {
@@ -271,6 +271,8 @@ transform: translate(2px,2px);
 .filter-container {
   margin: 0.5rem;
   margin-top: 5rem !important;
+  height: auto;
+  flex-wrap: wrap;
 }
 
 .filters {
@@ -287,8 +289,8 @@ text-align: center;
 }
 
 .filters button {
-  padding: 0.2rem 1rem;
   outline: none;
+  padding: 0.4rem;
   border: none;
   background-color: rgb(16, 54, 120);
   border-radius: 0.2rem !important;
@@ -708,17 +710,24 @@ text-align: center;
   }
 
   .filters button {
-    padding: 0.2rem 0.5rem;
+    padding: 0.5rem 1rem;
     outline: none;
     border: none;
     background-color: rgb(16, 54, 120);
-    border-radius: 1rem;
-    margin: 0.2rem;
+    border-radius: 0.5rem;
+    margin: 0.5rem;
     color: white;
     font-weight: bold;
-    font-size: 0.8rem;
-    /* Height is determined by content, not a fixed percentage */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    /* Hover Effect */
+    &:hover {
+      background-color: rgb(26, 74, 140);
+    }
   }
+  
 
   .filters input {
     border-radius: 0.5rem;

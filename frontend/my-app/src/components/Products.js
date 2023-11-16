@@ -160,6 +160,48 @@ const Products = () => {
     setProducts(result);
   }
 
+  async function Filter4() {
+    setFilter("Low to high");
+
+    try {
+      let result = await fetch(
+        "https://e-commerce-website-is92.onrender.com/filter4",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      result = await result.json();
+      setProducts(result);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred while fetching products.");
+    }
+  }
+
+  async function Filter5() {
+    setFilter("High to low");
+
+    try {
+      let result = await fetch(
+        "https://e-commerce-website-is92.onrender.com/filter5",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      result = await result.json();
+      setProducts(result);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred while fetching products.");
+    }
+  }
+
   async function Search(e) {
     let result = await fetch(
       `https://e-commerce-website-is92.onrender.com/search/${e.target.value}`,
@@ -217,6 +259,9 @@ const Products = () => {
           <button onClick={Filter1}>10000 RS-20000 RS</button>
           <button onClick={Filter2}>21000 RS-40000 RS</button>
           <button onClick={Filter3}> 40000+ RS</button>
+          <button onClick={Filter4}>Low to High</button>
+          <button onClick={Filter5}>High to Low</button>
+
           <button onClick={getProducts}>All</button>
           <button onClick={getLaptops}>Laptops</button>
           <button onClick={getMobiles}>Mobiles</button>
